@@ -1,0 +1,36 @@
+
+ The downwelling direct and diffuse fluxes have been computed using the delta-M scaling approximation.
+ Wavenumbers:   820. - 50000. cm-1
+ LEVEL PRESSURE   UPWARD FLUX   DIFDOWN FLUX  DIRDOWN FLUX  DOWNWARD FLUX   NET FLUX    HEATING RATE
+          mb          W/m2          W/m2          W/m2          W/m2          W/m2       degree/day
+  13    .06485      130.5567        0.0000      684.6693      684.6693     554.112639       0.00000
+  12     1.170      130.5287        0.1118      681.2199      681.3317     550.802966      25.26757
+  11     21.57      130.9374        1.8818      665.3021      667.1839     536.246482       6.02237
+  10     102.0      129.0830        8.3506      648.4162      656.7668     527.683806       0.89842
+   9     245.0      123.6055       18.5662      626.7476      645.3138     521.708318       0.35269
+   8     375.5      118.4211       26.4926      597.2780      623.7707     505.349593       1.05798
+   7     489.9      113.8619       32.5041      567.1216      599.6257     485.763762       1.44457
+   6     630.7      108.3562       38.8432      529.6977      568.5409     460.184731       1.53266
+   5     712.4      105.2843       42.0257      508.5467      550.5724     445.288120       1.53909
+   4     802.9      102.1549       45.1304      484.0072      529.1376     426.982630       1.70725
+   3     851.7      100.6346       46.6314      470.9183      517.5497     416.915077       1.74114
+   2     902.9       99.1620       48.0906      458.1753      506.2659     407.103905       1.61550
+   1     956.7       97.8160       49.4921      445.6096      495.1017     397.285755       1.54196
+   0     1013.       96.7872       50.8175      433.1184      483.9359     387.148703       1.51892
+
+  Modules and versions used in this calculation:
+
+                                                                                           
+                         $Revision: 2.6 $                  taumoldis.f:  $Revision: 2.5 $  
+      util_linux_pgi.f:                                      cldprop.f:  NOT USED          
+              rtrdis.f:  $Revision: 2.6 $                     disort.f:  $Revision: 2.4 $  
+            RDI1MACH.f:  NOT USED                            ErrPack.f:  NOT USED          
+              LINPAK.f:  $Revision: 2.3 $                      extra.f:  NOT USED          
+             k_gb16.f:   $Revision: 2.4 $                    k_gb17.f:   $Revision: 2.3 $  
+             k_gb18.f:   $Revision: 2.3 $                    k_gb19.f:   $Revision: 2.3 $  
+             k_gb20.f:   $Revision: 2.3 $                    k_gb21.f:   $Revision: 2.3 $  
+             k_gb22.f:   $Revision: 2.3 $                    k_gb23.f:   $Revision: 2.3 $  
+             k_gb24.f:   $Revision: 2.3 $                    k_gb25.f:   $Revision: 2.3 $  
+                                                             k_gb27.f:   $Revision: 2.3 $  
+             k_gb28.f:   $Revision: 2.3 $                    k_gb29.f:   $Revision: 2.3 $  
+

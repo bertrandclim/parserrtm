@@ -1,0 +1,84 @@
+#!/bin/csh
+set rrtm_prog = ../rrtm_sw_linux_pgi_v2.5
+
+#Run RRTM_SW for 8 example cases
+
+#Case 1
+#Case demonstrates a simple clear-sky calculation, using 
+#user-specified atmospheric parameters (tropical atmosphere), 
+#solar zenith angle = 59.973, surface emissivity = 0.80,
+#eight-stream calculation with DISORT.  TAPE 6 is saved from
+#this calculation as it is a useful diagnostic/summary.
+echo Running clear sky case
+\cp input_rrtm_sw_trp INPUT_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_trp
+\mv TAPE6 TAPE6_rrtm_sw_trp
+
+#Case 2
+#Same as Case 1, but add aerosols.
+echo Running clear sky case with aerosols
+\cp input_rrtm_sw_trp_aerosol INPUT_RRTM
+\cp in_aer_rrtm_trp_aerosol IN_AER_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_trp_aerosol
+
+#Case 3
+#Same as Case 1, but add single-layer ice cloud
+#File OUT_CLD_RRTM is saved.  This file shows the cloud optical properties 
+#
+echo Running single-layer ice clouds
+\cp input_rrtm_sw_trp_cld INPUT_RRTM
+\cp in_cld_rrtm_trp_icecld IN_CLD_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_trp_icecld
+
+#Case 4
+#Same as Case 1, but add single-layer, mixed-phase cloud
+#Note that the INPUT_RRTM file does not change between runs, only the IN_CLD_RRTM file
+#changes.
+echo Running single-layer mixed-phase cloud
+\cp in_cld_rrtm_trp_mixcld IN_CLD_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_trp_mixcld
+
+#Case 5
+#Same as Case #1 but IATM=0 and the atmospheric variables are specified for layers, rather
+#than levels.  Results will be almost identical to that from Case 1.
+echo Running clear sky with layer values-not level-as input
+\cp input_rrtm_sw_trp_layervals INPUT_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_trp_layervals
+
+#Case 6
+#Clear-Sky Mid-latitude summer atmosphere.  IATM=0, 51 layers, sza = 65.000,
+#spectrally-varying surface emissivity.  Atmospheric input on layer values.
+echo Running MLS clear-sky case
+\cp input_rrtm_sw_mls INPUT_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_mls
+
+#Case 7
+#Clear-Sky sub-arctic winter atmosphere.  IATM=0, 59 layers, sza = 75.000,
+#spectrally-varying surface albedo, julian day = 60, surface emissivity = 0.1.
+#Atmospheric input on layer values.
+echo Running SAW clear-sky case
+\cp input_rrtm_sw_saw INPUT_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_saw
+
+#Case 8
+#Case demonstrates how to input all atmospheric variables and calculational
+#levels on pressure levels (mbar), rather than altitude (km).
+echo Running pressure level example
+\cp input_rrtm_sw_pressure_levels INPUT_RRTM
+$rrtm_prog
+\mv OUTPUT_RRTM output_rrtm_sw_pressure_levels
+
+#Clean directory
+\rm TAPE6 TAPE7 INPUT_RRTM IN_AER_RRTM IN_CLD_RRTM
+
+echo Finish example cases
+
+
+
