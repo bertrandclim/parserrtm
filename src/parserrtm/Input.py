@@ -478,7 +478,7 @@ class Input(ABC):
             elif self.NUMANGS==2:
                 self.NSTR=16
             else:
-                raise ValueError(f"'{NUMANGS}' not a valid NUMANGS value, \
+                raise ValueError(f"'{self.NUMANGS}' not a valid NUMANGS value, \
                 must be 0, 1, or 2 when ISCAT > 0")
                 
         #iterate/read over records
@@ -615,7 +615,7 @@ class Input(ABC):
         if (len(starts)==len(ends)==1) and (starts<ends):
             start_i, end_i = starts[0], ends[0]
         else:
-            raise IOError(f"{fpath}: start lines '{starts}' and end lines '{ends}' not valid. Start is a line beginning with '$',\
+            raise IOError(f"start lines '{starts}' and end lines '{ends}' not valid. Start is a line beginning with '$',\
             end is a line beginning with '%', and input file must have exactly one start and end with the start occurring before the end.")
 
         return start_i, end_i
