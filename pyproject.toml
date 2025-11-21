@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parserrtm"
+version = "0.0.1"
+authors = [
+  { name="Leah Bertrand"},
+]
+description = "Fully-featured Python interface for rapid radiative transfer model (RRTM)"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-3.0"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+    "pandas",
+    "fortranformat"
+]
+
+[project.urls]
+Homepage = "https://github.com/bertrandclim/parserrtm"
+Issues = "https://github.com/bertrandclim/parserrtm/issues"
