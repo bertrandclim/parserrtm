@@ -2,6 +2,18 @@
 from .input import Input
 
 class InputSW(Input):
+    '''Specification of inputs for an RRTM-SW calculation
+
+    RRTM has many options which require different input variables.
+    This class stores input variables and automates the I/O process
+    for the complex text files required to run RRTM-SW.
+    
+    See the file `rrtm_instructions` as a part of the RRTM-SW source code
+    for definitions of each variable name.
+
+    See the examples distributed as a part of this repository for examples
+    of the variables necessary for various kinds of calculations.
+    '''
     def get_logical_record_order(self,file='input_rrtm'):
             '''
             Get record order to print out. Logical order means
