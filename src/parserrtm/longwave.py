@@ -1,5 +1,5 @@
     
-from Input import Input
+from . import Input
 
 class InputLW(Input):
     def get_logical_record_order(self,file='input_rrtm'):
