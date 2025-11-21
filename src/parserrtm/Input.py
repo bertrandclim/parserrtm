@@ -70,8 +70,16 @@ class Input(ABC):
         #treat as a dictionary of fields if argument is dict-like
         elif isinstance(args, abc.Mapping):
             self.from_dict(args,**kwargs)
+
+        
         
         #treat as a list of filenames if argument is list-like
+        # if length 1, assume input_rrtm
+        elif isinstance(args, abc.Sequence) and (len(args)==1):
+            fpath = args
+            self.read_input_rrtm(fpath[0],**kwargs)
+            self.fpath_input_rrtm = fpath[0]
+
         # if length 2, assume input_rrtm and in_cld_rrtm
         elif isinstance(args, abc.Sequence) and (len(args)==2):
             fpath = args
@@ -94,7 +102,7 @@ class Input(ABC):
         
         else:
             raise TypeError('Expected one of {} or {} of length 2 or 3, got {} instead'.format(
-                (abc.Mapping,str,os.PathLike),abc.Sequence, type(fpath)))
+                (abc.Mapping,str,os.PathLike),abc.Sequence, type(args)))
         
     def __getitem__(self, item):
          return getattr(self,item)
@@ -310,7 +318,7 @@ class Input(ABC):
     def copy(self):
         return copy.deepcopy(self)
 
-    def write(self,fpath=None, file='auto'):
+    def write(self,fpath=None, file='auto', fnames=None):
         '''
         Write instance of parserrtm.Input to text files needed to run RRTM.
 
@@ -320,10 +328,13 @@ class Input(ABC):
         -------------
         Arguments:
         self        : parserrtm.Input
-        fpath       : (str or PathLike, optional) folder where input files are written. Files are
-                      always written with default filenames of INPUT_RRTM, IN_CLD_RRTM, and IN_AER_RRTM.
-                      if fpath is not specified, files are written to the current working directory.
+        fpath       : (str or PathLike, optional) folder where input files are written
+                      If fpath is not specified, files are written to the current working directory.
         file        : (str, optional) kind of file to write. Options are 'input_rrtm', 'in_cld_rrtm', 'in_aer_rrtm', or 'auto' (default).
+        fname       : (list, optional) list of filenames to write. Specified in the order INPUT_RRTM, IN_CLD_RRTM, IN_AER_RRTM as
+                      applicable according to `file`. By default, filenames are INPUT_RRTM, IN_CLD_RRTM, IN_AER_RRTM since this is what 
+                      is required by the RRTM executable.
+
         -------------
         Returns:
         None
@@ -338,14 +349,19 @@ class Input(ABC):
                 files.append('in_aer_rrtm')
 
 
-        # use only default filenames
+        # add directory
         if fpath == None:
             fpath = Path.cwd()
         fpaths = {'input_rrtm':  Path(fpath)/'INPUT_RRTM',
                 'in_cld_rrtm': Path(fpath)/'IN_CLD_RRTM',
                 'in_aer_rrtm': Path(fpath)/'IN_AER_RRTM'}
         
-        # iterate over write methods
+        # apply filenames
+        if fnames:
+            for i,file in enumerate(files):
+                fpaths[file] = Path(fpath)/fnames[i]
+        
+        # write applicable files
         methods = {'input_rrtm':self.write_input_rrtm, 
                    'in_aer_rrtm':self.write_in_cld_rrtm, 
                    'in_cld_rrtm':self.write_in_aer_rrtm}
