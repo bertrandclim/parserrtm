@@ -94,15 +94,42 @@ class Input(ABC):
             fpath = args
             self.read_input_rrtm(fpath[0],**kwargs)
             self.fpath_input_rrtm = fpath[0]
-            if (fpath[1].lower() != 'none') and fpath[1]:
-                self.read_in_cld_rrtm(fpath[1],**kwargs)
-                self.fpath_in_cld_rrtm = fpath[1]
+            if fpath[1]:
+                if str(fpath[1]).lower() != 'none':
+                    self.read_in_cld_rrtm(fpath[1],**kwargs)
+                    self.fpath_in_cld_rrtm = fpath[1]
             self.read_in_aer_rrtm(fpath[2],**kwargs)
             self.fpath_in_aer_rrtm = fpath[2]
         
         else:
             raise TypeError('Expected one of {} or {} of length 2 or 3, got {} instead'.format(
                 (abc.Mapping,str,os.PathLike),abc.Sequence, type(args)))
+        
+        #derived parameter for number of streams,
+        #specified differently for LW and SW.
+        #only needed for cloudy cases
+        if self.ICLD == 1:
+            self.NSTR = 0
+            #shortwave
+            if hasattr(self,'ISTRM'):
+                if self.ISTRM == 0:
+                    self.NSTR = 4
+                elif self.ISTRM == 1:
+                    self.NSTR = 8
+                elif self.ISTRM == 2:
+                    self.NSTR = 16
+            #longwave
+            if hasattr(self,'NUMANGS'):
+                if (self.ISCAT==1) or (self.ISCAT==2):
+                    if self.NUMANGS==0:
+                        self.NSTR=4
+                    elif self.NUMANGS==1:
+                        self.NSTR=8
+                    elif self.NUMANGS==2:
+                        self.NSTR=16
+                    else:
+                        raise ValueError(f"'{self.NUMANGS}' not a valid NUMANGS value, \
+                        must be 0, 1, or 2 when ISCAT > 0")
         
     def __getitem__(self, item):
          return getattr(self,item)
@@ -282,10 +309,10 @@ class Input(ABC):
         '''
         return if record is a list (True) or scalar (False)
         '''
-        lists = ['2.1.1','2.1.2','2.1.3','2.2.3','2.2.4','2.2.5','3.5','3.6.1','3.8.1','3.8.2','C1.2','C1.3','C1.3a']
+        lists = ['2.1.1','2.1.2','2.1.3','2.2.3','2.2.4','2.2.5','3.5','3.6.1',
+                 '3.8.1','3.8.2','C1.2','C1.3','C1.3a','A2.1','A2.1.1','A2.2','A2.3']
         return rec in lists
 
-    #TODO: add aerosol records
     def record_len(self,rec):
         '''
         Return number of times a record is repeated.
@@ -301,9 +328,13 @@ class Input(ABC):
             '3.6.1': lambda self: self.IMMAX,
             '3.8.1': lambda self: self.LAYX,
             '3.8.2': lambda self: self.LAYX,
-            'C1.2':  lambda self: 1 if type(self.LAY) != list else len(self.LAY),
-            'C1.3':  lambda self: 1 if type(self.LAY) != list else len(self.LAY),
-            'C1.3a': lambda self: 15
+            'C1.2':  lambda self: 1 if type(self.CLAY) != list else len(self.CLAY),
+            'C1.3':  lambda self: 1 if type(self.CLAY) != list else len(self.CLAY),
+            'C1.3a': lambda self: 15,
+            'A2.1':  lambda self: self.NAER,
+            'A2.1.1':lambda self: sum(self.NLAY),
+            'A2.2':  lambda self: self.NAER,
+            'A2.3':  lambda self: self.NAER if self.IPHA<2 else self.NSTR*self.NAER
         }
         return lens[rec](self)
     
@@ -345,9 +376,9 @@ class Input(ABC):
             files.append('input_rrtm')
             if self.ICLD > 0:
                 files.append('in_cld_rrtm')
-            if self.IAER > 0:
-                files.append('in_aer_rrtm')
-
+            if hasattr(self,'IAER'):
+                if self.IAER > 0:
+                    files.append('in_aer_rrtm')
 
         # add directory
         if fpath == None:
@@ -363,8 +394,8 @@ class Input(ABC):
         
         # write applicable files
         methods = {'input_rrtm':self.write_input_rrtm, 
-                   'in_aer_rrtm':self.write_in_cld_rrtm, 
-                   'in_cld_rrtm':self.write_in_aer_rrtm}
+                   'in_cld_rrtm':self.write_in_cld_rrtm, 
+                   'in_aer_rrtm':self.write_in_aer_rrtm}
         for file in files:
             methods[file](fpaths[file])
             
@@ -436,80 +467,53 @@ class Input(ABC):
         
         return line
     
-    #NOTE: record order identical between SW and LW variants?
-    def read_in_cld_rrtm(self, fpath):
-        '''
-        Read and interpret "IN_CLD_RRTM" text file into the current instance.
-        
-        "IN_CLD_RRTM" contains information about cloud layers in the model and
-        is only used if ICLD (record 1.2) = 1 or 2. Note that an "INPUT_RRTM"
-        file must already be read into self before reading "IN_CLD_RRTM",
-        since the formatting of "IN_CLD_RRTM" depends on some fields from
-        "INPUT_RRTM" (namely ISCAT and NUMANGS).
-        
-        Scan the content of a file and interpret each line according to 
-        the format, sequence, and naming described in the documentation
-        file "rrtm_instructions". Each field is read into an attribute
-        of the current instance. Repeated fields (e.g. user-defined profiles) 
-        are read into a list in order of occurrence.
-        
-        NOTE: 
-            For INFLAG=10, the fields TAUCLD, SINGLE-SCATTERING ALBEDO, PMOM(0:NSTR)
-            are a list of lists. What this means: each item in the outer list is a 
-            cloudy layer, while each item in the inner list are the cloud properties 
-            for the 16 spectral bands in ascending order. 
+    @abstractmethod
+    def read_in_cld_rrtm(self,fpath):
+        pass
 
-            The first band is specified as C1.3, while the next 15 bands are 
-            specified as C1.3a, which has fewer fields, which makes the formatting a bit
-            unusual. Since no examples in the source code use INFLAG=10, this is untested!
+    @abstractmethod
+    def read_input_rrtm(self,fpath):
+        pass
 
-        -------------
-        Arguments:
-        self        : instance of rrtmparse Input class
-        fpath       : path to "IN_CLD_RRTM" file
-        -------------
-        Returns:
-        self        : instance with all fields stored as attributes
-        -------------
+    def read_in_aer_rrtm(self,fpath):
         '''
+        Read and interpret "IN_AER_RRTM" text file into the current instance.
         
+        "IN_AER_RRTM" contains information about aerosol layers in the model and
+        is only used if IAER (record 1.2) = 10 in RRTM_SW. Note that an "INPUT_RRTM"
+        file must already be read into self before reading "IN_AER_RRTM".
+        ''' 
         with open(fpath,'r') as f:
             #read lines into list
             lines = f.readlines()
             self.lines = lines
             
         #get start and end lines (start line is zero)
-        start_i, end_i = Input.get_input_rrtm_file_bounds(self.lines,file='in_cld_rrtm')
+        start_i, end_i = Input.get_input_rrtm_file_bounds(self.lines,file='in_aer_rrtm')
         
         #set read position to starting line
         self.read_i = start_i
         
-        #determine derived parameter NSTR (# of mom. of phase function needed)
-        self.NSTR = 0
-        if (self.ISCAT==1) or (self.ISCAT==2):
-            if self.NUMANGS==0:
-                self.NSTR=4
-            elif self.NUMANGS==1:
-                self.NSTR=8
-            elif self.NUMANGS==2:
-                self.NSTR=16
-            else:
-                raise ValueError(f"'{self.NUMANGS}' not a valid NUMANGS value, \
-                must be 0, 1, or 2 when ISCAT > 0")
-                
         #iterate/read over records
-        self.read_record('C1.1')
-        if (self.INFLAG == 1) or (self.INFLAG == 2):
-            self.read_record('C1.2',mode='new')
-            while self.read_i < end_i:
-                self.read_record('C1.2',mode='append')
-        elif (self.INFLAG == 0) or (self.INFLAG == 10):
-            self.read_record('C1.3',mode='new')
-            while self.read_i < end_i:
-                self.read_record('C1.3',mode='append')
-                if self.INFLAG == 10:
-                    for i in range(15):
-                        self.read_record('C1.3a',mode='append depth')
+        self.read_record('A1.1')
+        for i in range(self.NAER):
+            self.read_record('A2.1',mode='new' if i==0 else 'append')
+            #NOTE: this approach gives AOD flattened dimensions of (0,...,NLAY(NAER=0),...,NLAY(NAER=0)+NLAY(NAER=1),...,sum(NLAY(NAER)))
+            for j in range(self.NLAY[-1] if isinstance(self.NLAY,list) else self.NLAY):
+                self.read_record('A2.1.1',mode='new' if (i == 0) & (j ==0) else 'append')
+        for i in range(self.NAER):
+            #fields are SSA(IB) with a length of NAER
+            self.read_record('A2.2',mode='new' if i==0 else 'append')
+            if (self.IPHA[-1] if isinstance(self.IPHA,list) else self.IPHA) == 2:
+                for i in self.NSTR:
+                    #left unsupported because records would be different.
+                    #instead of IPHASE(IB) with dimensions of NAER,
+                    # it would be IPHASE(IB,NSTR) with dimensions of NAER,
+                    # where NSTR is an index for each stream.
+                    raise NotImplementedError('Direct aerosol phase-function specification not yet supported!')
+                    self.read_record('A2.3',mode='new' if i==0 else 'append')
+            else:
+                self.read_record('A2.3')
         
         #check that we read up to the expected end of records
         if self.read_i != end_i:
@@ -517,94 +521,7 @@ class Input(ABC):
             
         del self.lines
         return self
-    
-    #NOTE: record order identical between SW and LW variants?
-    def read_input_rrtm(self, fpath):
-        '''
-        Read and interpret "INPUT_RRTM" text file into the current instance.
-        
-        "INPUT_RRTM" contains the overall model setup and specifies surface
-        boundary conditions, temperature and pressure profiles, which gases
-        to simulate, and their concentration at levels.
-        
-        Scan the content of a file and interpret each line according to 
-        the format, sequence, and naming described in the documentation
-        file "rrtm_instructions". Each field is read into an attribute
-        of the current instance. Repeated fields (e.g. user-defined profiles) 
-        are read into a list in order of occurrence.
 
-        -------------
-        Arguments:
-        self        : instance of parserrtm.Input
-        fpath       : path to "INPUT_RRTM" file
-        -------------
-        Returns:
-        self        : instance with all fields stored as attributes
-        -------------
-        '''
-        #1. get file record layout
-        #2. get field lists
-        #3. loop over lines and store
-        
-        with open(fpath,'r') as f:
-            #read lines into list
-            lines = f.readlines()
-            self.lines = lines
-            
-        #get start and end lines
-        start_i, end_i = Input.get_input_rrtm_file_bounds(self.lines)
-        
-        #set read position to starting line
-        self.read_i = start_i
-        
-        #sequentially read records of file
-        self.read_record('1.1')
-        self.read_record('1.2')
-        self.read_record('1.4')
-        if self.IATM == 0:
-            self.read_record('2.1')
-            for i in range(self.NLAYRS):
-                self.read_record('2.1.1',mode='new' if i==0 else 'append')
-                self.read_record('2.1.2',mode='new' if i==0 else 'append')
-                if self.NMOL > 7:
-                    self.read_record('2.1.3',mode='new' if i==0 else 'append')
-            if self.IXSECT == 1:
-                self.read_record('2.2')
-                self.read_record('2.2.1')
-                self.read_record('2.2.2')
-                for i in range(self.NLAYRS):
-                    self.read_record('2.2.3',mode='new' if i==0 else 'append') #dummy
-                    self.read_record('2.2.4',mode='new' if i==0 else 'append')
-                    if self.IXMOLS > 7:
-                        self.read_record('2.2.5',mode='new' if i==0 else 'append')
-        elif self.IATM == 1:
-            self.read_record('3.1')
-            self.read_record('3.2')
-            if self.IBMAX == 0:
-                self.read_record('3.3A')
-            else:
-                self.read_greedy_record('3.3B') #GREEDY
-            if self.MODEL == 0:
-                self.read_record('3.4')
-                for i in range(self.IMMAX):
-                    self.read_record('3.5',mode='new' if i==0 else 'append')
-                    self.read_record('3.6.1',mode='new' if i==0 else 'append')
-            if self.IXSECT == 1:
-                self.read_record('3.7')
-                self.read_record('3.7.1')
-                if self.IPRFL == 0: 
-                    self.read_record('3.8')
-                    for i in range(self.LAYX):
-                        self.read_record('3.8.1',mode='new' if i==0 else 'append')
-                        self.read_record('3.8.2',mode='new' if i==0 else 'append')
-                        
-        if self.read_i != end_i:
-            warnings.warn(f'{fpath} read finished on line {self.read_i} instead of {end_i} -- some of input is unread!')
-            
-        del self.lines
-        return self
-    
-    #TODO: add in_aer_rrtm file support
     def get_input_rrtm_file_bounds(lines,file='input_rrtm'):
         '''
         Find start and end lines for "INPUT_RRTM"  or "IN_CLD_RRTM" file.
@@ -612,7 +529,7 @@ class Input(ABC):
         -------------
         Arguments:
         lines (list): list of lines of file (from file.readlines())
-        file   (str): type of input file ('input_rrtm' or 'in_cld_rrtm')
+        file   (str): type of input file ('input_rrtm', 'in_cld_rrtm', or 'in_aer_rrtm')
         -------------
         Returns:
         start_i, end_i (int): line positions of first and last lines of file
@@ -624,8 +541,12 @@ class Input(ABC):
         ends   = [i for i,s in enumerate(lines) if s[0]=='%']
         
         #in_cld_rrtm has no starting '$' character and begins on the first line
-        if file == 'in_cld_rrtm':
+        if file in ['in_cld_rrtm','in_aer_rrtm']:
             starts = [0]
+
+        #in_aer_rrtm has no ending '$' character required so assume input ends with file
+        if file == 'in_aer_rrtm':
+            ends.append(len(lines)-1)
 
         #check '$' and '%' only occur once and '$' comes before '%'
         if (len(starts)==len(ends)==1) and (starts<ends):

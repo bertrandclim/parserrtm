@@ -105,11 +105,8 @@ class Runner:
                         input = inputs[i]
                     else:
                         break
-                    if verbose: print(f'\t \t {input.name} in {dir.name}')
-                    if input.ICLD:
-                        input.write([dir/'INPUT_RRTM',dir/'IN_CLD_RRTM'])
-                    else:
-                        input.write(dir/'INPUT_RRTM')
+                    if verbose: print(f'\t \t {input.CXID[1:16]} in {dir.name}')
+                    input.write(fpath=dir,file='auto')
                     p = subprocess.Popen(self.argproc('./rrtm'),shell=False,cwd=dir,stdout=logfiles[j],stderr=subprocess.STDOUT)
                     ps.append(p)
                     #print(f'\t \t {i}')
@@ -155,3 +152,116 @@ def prepend(shell,cmd):
 def splitfirst(l):
     '''split first list element along spaces'''
     return [*l[0].split(),*(l[1:] if len(l)>1 else [])]
+
+def read_output(fpath):
+    calc_type = determine_output_type(fpath)
+    if calc_type == 'longwave':
+        return read_output_lw(fpath)
+    elif calc_type == 'shortwave':
+        return read_output_sw(fpath)
+
+def read_output_lw(fpath):
+    '''
+    Read RRTM_LW ASCII output file and parse to xarray.Dataset.
+    Adapted from https://github.com/climatedyn/RRTM_LW.
+    Arguments:
+        Absolute path to RRTM_LW output file
+    Returns:
+        Xarray.Dataset with contents of file
+    '''
+    
+    #loop over file to get number of numeric lines to read
+    with open(fpath,'r') as f:
+        #load lines as list
+        lnes = f.readlines()
+        #find the line # of a form-feed+newline (this marks the end of the table)
+        indx = lnes.index('\x0c\n')
+        #get lines before column names and after table to save as metadata
+        global_attrs = {'source': fpath,
+                        'created_by':'parserrtm',
+                        'output_header': lnes[0],
+                        'output_footer': lnes[indx+1:]}
+
+    #parse with pandas
+    ds = pd.read_fwf(
+                        fpath,
+                        header=[1,2], #2nd and 3rd lines (1st gets auto-skipped)
+                        nrows=indx-3, #remove three leading text lines
+                        widths=[8,13,14,14,14,19], #field widths
+                        index_col=0 #use LEVEL for index
+                    ).to_xarray()
+
+    #put units in attrs, format varnames
+    ds = ds.rename({'index':'level'})
+    rname = { }
+    for var in ds.data_vars:
+        if var[0].replace(' ','_').lower() == 'netflux': 
+            rname[var] = 'net_flux'
+        else:
+            rname[var] = var[0].replace(' ','_').lower()
+        ds[var].attrs['units'] = var[1]
+    ds = ds.rename(rname)
+    #store non-table data in global attrs
+    ds.attrs = global_attrs
+    return ds
+
+def read_output_sw(fpath):
+    '''
+    Read RRTM_SW ASCII output file and parse to xarray.Dataset.
+    Arguments:
+        Absolute path to RRTM_SW output file
+    Returns:
+        Xarray.Dataset with contents of file
+    '''
+    #loop over file to get number of numeric lines to read
+    with open(fpath,'r') as f:
+        #load lines as list
+        lines = f.readlines()
+        #find the first line of the table (after "Wavenumbers: ...")
+        for i,line in enumerate(lines):
+            if line[1:12] == 'Wavenumbers':
+                start_i = i+1
+                break
+        #find the line # of a form-feed+newline (this marks the end of the table)
+        end_i = lines.index('\x0c\n')
+        #get lines before column names and after table to save as metadata
+        global_attrs = {'source': fpath,
+                        'created_by':'parserrtm',
+                        'output_header': lines[0],
+                        'output_footer': lines[end_i+1:]}
+
+        #parse with pandas
+        ds = pd.read_fwf(
+                            fpath,
+                            header=[start_i-1, start_i], #2nd and 3rd lines (1st gets auto-skipped)
+                            nrows=end_i-start_i-2, #remove three leading text lines
+                            widths=[6,10,14,14,15,14,15,13], #field widths
+                            index_col=0 #use LEVEL for index
+                        ).to_xarray()
+
+        #put units in attrs, format varnames
+        ds = ds.rename({'index':'level'})
+        rname = { }
+        for var in ds.data_vars:
+            if var[0].replace(' ','_').lower() == 'netflux': 
+                rname[var] = 'net_flux'
+            else:
+                rname[var] = var[0].replace(' ','_').lower()
+            ds[var].attrs['units'] = var[1]
+        ds = ds.rename(rname)
+        #store non-table data in global attrs
+        ds.attrs = global_attrs
+        return ds
+
+def determine_output_type(fpath):
+    with open(fpath) as f:
+        i = 0
+        while i<3:
+            line = f.readline()
+            i+=1
+            #print(line[1:34])
+            if line[1:34] == 'Wavenumbers:   10.0 - 3250.0 cm-1':
+                return 'longwave'
+            elif line[1:34] == 'Wavenumbers:   820. - 50000. cm-1':
+                return 'shortwave'
+

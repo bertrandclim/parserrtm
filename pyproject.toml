@@ -19,6 +19,7 @@ license = "GPL-3.0"
 license-files = ["LICEN[CS]E*"]
 dependencies = [
     "pandas",
+    "xarray",
     "fortranformat"
 ]
 

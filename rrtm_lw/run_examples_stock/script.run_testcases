@@ -2,7 +2,7 @@
 # Must set the location of the rrtm executable in the
 # rrtm_prog variable directory below.
 
-set rrtm_prog = rrtm
+set rrtm_prog = rrtm 
 
 echo Run ICRCCM example
 \cp input_rrtm_ICRCCM_sonde INPUT_RRTM
