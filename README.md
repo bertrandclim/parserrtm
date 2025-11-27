@@ -1,113 +1,37 @@
 # parserrtm
-Python wrapper for RRTM_LW ASCII text interface. Below are some resources for compiling and running RRTM_LW, which dovetail into instructions how to use `parserrtm` to run RRTM_LW.
+A high-level interface for running the Rapid Radiative Transfer Model (RRTM) in Python, both longwave (RRTM_LW) and shortwave (RRTM_LW) versions. A high-level interface helps because the Fortran text file inputs are unreadable by humans. With this library, all you interact with are named input parameters and calculation results.
 
-# getting started
+For example, you can simply take an existing example input file and modify the field of interest to you. The library takes care of underlying file I/O and just gives you a dataset with the results of your calculation.
 
-## 1. compile RRTM_LW
-### On a supercomputer
-What I did on the RMACC Alpine supercomputer:
+# installing parserrtm
 
-1. Launch into a compiling node (this varies from machine to machine)
-  ```bash
-acompile
-```
-2. Load the `pgf90` compiler
-   ```bash
-   module load nvhpc_sdk
-   ``` 
-4. Clone needed repositories
-   ```bash
-   git clone https://github.com/AER-RC/RRTM_LW
-   git clone https://github.com/AER-RC/aer_rt_utils_f77
-   ```
-3. Compile. If maketools are not installed use your package manager to install them.
-   ```bash
-   cd ./RRTM_LW
-   make -f makefiles/make_rrtm
+Two components are needed: (1) this Python library and (2) executables for the RRTM Fortran codes. The Python library is easy to install and linux binaries of the RRTM executables are distributed in `/rrtm_lw/` and `/rrtm_sw/`. 
 
-If you want to use another compiler or platform, you need to link the relevant file in aer_rt_utils_f77 into `./RRTM_LW/src`. For example, to use the GNU Fortran compiler:
-```bash
-cd ./RRTM_LW
-ln -s ../aer_rt_utils_f77/util_gfortran.f ./src/util_gfortran.f
-```
-and then change `FC_TYPE` from `pgi` to `FC_TYPE=gnu` in `makefiles/makefile.common`. But this only works by default on MacOS. If you want to use the GNU compiler on Linux, then add 
-```bash
-# Open source GNU Fortran 95/2003 compiler
-                ifeq ($(FC_TYPE),gnu)
-                        FC = gfortran
-                        FCFLAG =   -fdefault-integer-8 -fdefault-real-8 -Wall -frecord-marker=4 --std=legacy
-                        UTIL_FILE = util_gfortran.f
-                endif
-```
-under the `ifeq ($(PLATFORM),Linux)` codeblock in `makefiles/makefile.common`. Note that `makefile.common` needs `--std=legacy` added to the `FCFLAG` line under the Darwin code block as well if you're compiling for MacOS.
-At some point I might make fork the repo with a fixed `makefile.common`.
+For MacOS, I reccomend using `lima` for a Linux virtual machine. If the binaries don't work on your system, you will need to compile RRTM from source (see `rrtm_compiling_guide.md`).
 
-But when I compiled RRTM_LW this way, the test cases using DISORT `ISCAT=1` would fail, though the other test cases succeeded. 
-So I would reccomend the `pgf90` compiler. Note that the other compilers (`ifort`,`g95`) no longer appear to be supported for MacOS.
-
-### On a local machine
-Since I wanted to use DISORT (`ISCAT=1`) for my calculations, I used `lima` to run a linux virtual machine with the `pgf90` compiler.
-1. Install lima (more info [here](https://jvns.ca/blog/2023/07/10/lima--a-nice-way-to-run-linux-vms-on-mac/))
-```bash
-brew install lima
+## from pypi
 ```
-2. Boot up and launch into the virtual machine
-```bash
-limactl start default
-lima
+git clone https://github.com/bertrandclim/parserrtm.git
+pip install parserrtm
 ```
-3. Install the PGF compiler (more info [here](https://developer.nvidia.com/hpc-sdk-downloads))... it's big and takes a while to finish.
-```bash
-curl https://developer.download.nvidia.com/hpc-sdk/ubuntu/DEB-GPG-KEY-NVIDIA-HPC-SDK | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg
-echo 'deb [signed-by=/usr/share/keyrings/nvidia-hpcsdk-archive-keyring.gpg] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | sudo tee /etc/apt/sources.list.d/nvhpc.list
-sudo apt-get update -y
-sudo apt-get install -y nvhpc-23-9
+## from git repo
 ```
-4. Install maketools
-  ```bash
-sudo apt-get install make
-```
-5. Restart the virtual machine and launch back in
-  ```bash
-exit
-limactl stop default
-limactl start default
-lima
-```
-6. Add the PGF compilers to the shell path ([source](https://docs.nvidia.com/hpc-sdk/hpc-sdk-install-guide/index.html#install-linux-end-usr-env-settings))
-  ```bash
-NVARCH=`uname -s`_`uname -m`; export NVARCH
-NVCOMPILERS=/opt/nvidia/hpc_sdk; export NVCOMPILERS
-MANPATH=$MANPATH:$NVCOMPILERS/$NVARCH/23.9/compilers/man; export MANPATH
-PATH=$NVCOMPILERS/$NVARCH/23.9/compilers/bin:$PATH; export PATH
-```
-7. Clone needed repositories
-   ```bash
-   git clone https://github.com/AER-RC/RRTM_LW
-   git clone https://github.com/AER-RC/aer_rt_utils_f77
-   ```
-8. Compile RRTM.
-   ```bash
-   cd ./RRTM_LW
-   make -f makefiles/make_rrtm
-
-## 2. Run RRTM test cases to verify compilation
-The GitHub version of RRTM doesn't come with run examples; only the version hosted on AER's website (v3.3) does.
-1. Download test cases
-```bash
-wget http://files.aer.com/rtweb/aer_rrtm/aer_rrtm_v3.3.tar.gz
-tar -xvf ./aer_rrtm_v3.3.tar.gz
-```
-2. Point test case script to RRTM binary. In `/run_examples/script.run_testcases`, replace `rrtm` with `path/to/rrtm/binary` (e.g. `$rrtm_prog = ../../RRTM_LW/rrtm_v3.3.1_linux_pgf90`).
-
-3. The script to run test cases uses `tcsh`, so if `tcsh` is not installed, install it now
-  ```bash
-sudo apt-get install tcsh
+git clone https://github.com/bertrandclim/parserrtm.git
+cd parserrtm
+python3 -m build
+pip install dist/parserrtm-0.0.1.tar.gz
 ```
 
-4. Run test cases. After each "Running..." statement, a "FORTRAN STOP" should be printed to indicate successful termination.
-```bash
-cd ../rrtm_lw/run_examples
-./script.run_testcases
-```
+# after installing
+First, you should benchmark your RRTM executable. Open `/tests/run_stock_examples.ipynb` in Jupyterlab (or similar) and hit `notebook -> run all cells`. This will run a series of example cases for RRTM_LW and RRTM_SW and validate the output.
 
+# overview
+`parserrtm` offers three high-level classes for running this radiative transfer model: `InputLW`, `InputSW`, and `Runner`.
+
+The `InputLW` and `InputSW` classes expose RRTM parameter fields as attributes you can assign to or declare (see `rrtm_lw/rrtm_instructions` and `rrtm_sw/rrtm_sw_instructions` for a definition of fields). Each instance holds all the data for a single RRTM run.
+
+You can initialize an `InputLW` or `InputSW` object from existing RRTM input files or a dictionary. Once you have an `InputLW` or `InputSW` that sets up the kind of calculation you want, you can simply modify the attributes of interest for your research and rerun the calculations.
+
+Calculations are handled by the `Runner` class. It takes a series of input objects, runs RRTM, and loads the output back into Python.
+
+Coming soon: some usage example tutorials and documentation pages. For now, the docstrings of `Runner`, `Input`, `InputSW`, and `InputLW` should be a good starting point.
