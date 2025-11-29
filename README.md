@@ -5,7 +5,7 @@ With `parserrtm`, you can simply take an existing example input file and modify 
 
 # installing parserrtm
 
-Two components are needed: (1) this Python library and (2) executables for the RRTM Fortran codes. The Python library is easy to install and I have a [compilation guide](https://github.com/bertrandclim/parserrtm/blob/main/rrtm_compiling_guide.md) for getting the RRTM executables from `/rrtm_lw/` and `/rrtm_sw/`.
+Two components are needed: (1) this Python library and (2) executables for the RRTM Fortran codes. The Python library is easy to install and I have a [compilation guide](https://github.com/bertrandclim/parserrtm/blob/main/rrtm_compiling_guide.md) for getting the RRTM executables from `rrtm_lw/` and `rrtm_sw/` in this repository. If you are running anything other than Red Hat Enterprise Linux 8.10, you will probably need to compile RRTM.
 
 I've only ever successfully compiled RRTM on linux with the PGI/NVIDIA compiler, so if you're on another OS I'd reccomend using a virtual machine (like `lima` for macOS).
 
