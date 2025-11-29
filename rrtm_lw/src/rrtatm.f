@@ -1,6 +1,6 @@
 C     path:      %P%                                                            
-C     revision:  $Revision: 9.4 $                                              
-C     created:   $Date: 2010/07/07 21:10:52 $                                   
+C     revision:  $Revision$                                              
+C     created:   $Date$                                   
 C     presently: %H%  %T%                                                       
 C                                                                               
       SUBROUTINE RRTATM
@@ -159,7 +159,7 @@ C
 C                                                                               
 C     ASSIGN CVS VERSION NUMBER TO MODULE                                       
 C                                                                               
-      HVRATM = '$Revision: 9.4 $'                                              
+      HVRATM = '$Revision$'                                              
 C                                                                        FA01050
 C     IBDIM IS THE MAXIMUM NUMBER OF LAYERS FOR OUTPUT TO LBLRTM         FA01060
 C     IOUTDM IS THE MAXIMUN NUMBER OF OUTPUT LAYERS                      FA01070
@@ -582,7 +582,7 @@ C                                                                        FA04820
      *                  IFXTYP,MUNITS,RE,HSPACE,XVBAR,dumrd,sref_lat            
          XVBAR = 1.0
          ITYPE = 2
-         NOZERO = 1
+         N_ZERO = 1
                                                                                 
 c Set REF_LAT variable based on input character string in SREF_LAT              
          IF (SREF_LAT .eq. '          ') THEN                                   
@@ -7860,9 +7860,9 @@ c      REAL BTZ
                                                                                 
       DATA XMASS_H2O/0.018015/,XMASS_DRY/0.0289654/                             
                                                                                 
-C CALCULATE GRAVITY AT REFERENCE LATITUDE AT SURFACE                            
+C CALCULATE GRAVITY AT REFERENCE LATITUDE AT SURFACE (cm/s2)                            
                                                                                 
-      G0 = GRAV - 0.02586*COS(2.0*PI*REF_LAT/180.0)                             
+      G0 = GRAV - 2.586*COS(2.0*PI*REF_LAT/180.0)                             
                                                                                 
 C CALCULATE THE NUMBER DENSITY OF TOTAL AIR MOLECULES [MOLEC/CM^3]              
 C CALCULATE THE COMPRESSIBILITY FACTOR (COMP_FAC) FOR THE                       
@@ -7870,7 +7870,9 @@ C IDEAL GAS LAW
       XMASS_RATIO = XMASS_H2O/XMASS_DRY                                         
       DO 10 J=1,ILVL                                                            
          DT = TM(J) - 273.15                                                    
-         TOTAL_AIR = PM(J)*1.0E-4/(BOLTZ*TM(J))                                 
+
+c converting pressure to CGS
+         TOTAL_AIR = PM(J)*1.0E+3/(BOLTZ*TM(J))                                 
          DRY_AIR = TOTAL_AIR - DENW(J)                                          
          H2O_MIXRAT(J) = DENW(J)/DRY_AIR                                        
          CHIM = XMASS_RATIO*H2O_MIXRAT(J)                                       
@@ -7884,9 +7886,13 @@ C CONVERT REFERENCE ALTITUDE TO METERS
                                                                                 
       ZTEMP(1) = REF_Z*1000.0                                                   
       ZMDL(1) = REF_Z                                                           
+      print *,'in CMPALT'
                                                                                 
       DO 20 I=1, ILVL - 1                                                       
          GAVE = G0*(RE/(RE+ZTEMP(I)/1000.0))**2                                 
+
+c Now convert to to m/s2 for use with xmass_dry (kg) below
+         GAVE = GAVE/100.
          Y =  LOG(PM(I+1)/PM(I))                                                
                                                                                 
          IF (Y. NE. 0.0) THEN                                                   
@@ -7911,7 +7917,9 @@ C CONVERT REFERENCE ALTITUDE TO METERS
                                                                                 
             XINT_TOT = C1*Y + 0.5*(C2-C1*ALPHA)*Y**2 +                          
      &           0.3333*(C3-C2*ALPHA+C1*ALPHA**2)*Y**3                          
-            XINT_TOT =  -XINT_TOT*GASCON/(XMASS_DRY*GAVE*B)                     
+
+c 1.0e-7 converts GASCON to MKS, for consistency with xmass_dry and gave
+            XINT_TOT =  -XINT_TOT*(GASCON*1.0e-7)/(XMASS_DRY*GAVE*B)                     
                                                                                 
             ZTEMP(I+1) = ZTEMP(I) + XINT_TOT*COMP_FACTOR(I)                     
             ZMDL(I+1) = ZTEMP(I+1)/1000.                                        

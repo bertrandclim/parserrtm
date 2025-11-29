@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/rtreg.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.4 $
-C     created:   $Date: 2010/07/07 21:10:53 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -79,7 +79,7 @@ C     weight.
       DATA WTREG(2,4) /0.2034645680/, WTREG(1,4) /0.1355069134/
       DATA REC_6 /0.166667/
 
-      HVRREG = '$Revision: 3.4 $'
+      HVRREG = '$Revision$'
       RADSUM = 0.
       NUMANG = ABS(NUMANGS)
 C *** Load angle data in arrays depending on angular quadrature scheme.

@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/k_g.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.2 $
-C     created:   $Date: 2001/10/11 18:23:10 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 ****************************************************************************
 
       BLOCK DATA KGB16

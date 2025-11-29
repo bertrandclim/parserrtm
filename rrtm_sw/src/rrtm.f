@@ -1,7 +1,7 @@
 C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/rrtm.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.10 $
-C     created:   $Date: 2004/04/15 18:50:57 $
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -142,11 +142,11 @@ c     Setup format statements for output
      4 '(1X,I3,4X,F6.3,4X,4(F10.4,4X),F11.6,4X,F10.5)',
      5 '(1X,I3,4X,F6.2,4X,4(F10.4,4X),F11.6,4X,F10.5)',
      6 '(1X,I3,4X,F6.1,4X,4(F10.4,4X),F11.6,4X,F10.5)',
-     7 '(1X,I3,5X,F5.0,4X,4(F10.4,4X),F11.6,4X,F10.5)'/
+     7 '(1X,I3,4X,F6.1,4X,4(F10.4,4X),F11.6,4X,F10.5)'/
 
       PAGE = CHAR(12)
 
-      HVRRTM = '$Revision: 2.10 $'      
+      HVRRTM = '$Revision$'      
 
       ONEMINUS = 1. - 1.E-6
 c      PI = 2.*ASIN(1.)
@@ -279,10 +279,10 @@ C ***    Output module version numbers
  4000 CONTINUE
 
  9879 format(1x)
- 9880 format(1x,'All output fluxes have been adjusted to account for ins
-     &trumental cosine response.') 
- 9881 format(1x,'The output diffuse fluxes have been adjusted to account
-     & for instrumental cosine response.') 
+ 9880 format(1x,'All output fluxes adjusted to account for ins
+     &trumental cosine response; heating rates invalid')
+ 9881 format(1x,'The output diffuse fluxes adjusted to account
+     & for instrumental cosine response; heating rates invalid')
 
  9882 format(1x,'The downwelling direct and diffuse fluxes have been com
      &puted using the delta-M scaling approximation.') 
@@ -391,12 +391,6 @@ C     No cross-sections implemented in shortwave.
          STOP
       ENDIF
 
-      IF (IAER.EQ.10) CALL READAER
-
-C     If clouds are present, read in appropriate input file, IN_CLD_RRTM.
-      IF (ICLD .EQ. 1) CALL READCLD
-
-
       READ (IRD,9020) JULDAT, SZA, ISOLVAR, (SOLVAR(IB),IB=IB1,IB2)
 
       ZENITH = COS(SZA * PI / 180.)
@@ -405,6 +399,13 @@ C     If clouds are present, read in appropriate input file, IN_CLD_RRTM.
       ELSE
          ADJFLUX_JD = EARTH_SUN (JULDAT)
       ENDIF
+
+C     If clouds are present, read in appropriate input file, IN_CLD_RRTM.
+      IF (ICLD .EQ. 1) CALL READCLD
+
+C     If aerosols are present, read in appropriate input file, IN_AER_RRTM.
+      IF (IAER.EQ.10) CALL READAER 
+
 
       IF (ISOLVAR .EQ. 0) THEN
          DO 1400 IB = IB1,IB2
@@ -534,7 +535,7 @@ C     Test for mixing ratio input.
  9011 FORMAT (18X,I2,29X,I1,32X,I1,1X,I1,2X,I3,4X,I1,3x,i1,i1)
  9012 FORMAT (11X,I1,2X,I1,14F5.3)
  9013 FORMAT (1X,I1,I3,I5)                                     
- 9020 format (12X, I3, 3X, F7.4, 4X, I1,14F5.3)
+ 9020 format (12X, I3, 3X, F7.4, 4X, I1,14F7.5)
  9300 FORMAT (I5)
  9301 FORMAT (1X,I1)
 
@@ -613,7 +614,7 @@ C     cloudy layers to process.
 
 C************************  SUBROUTINE READAER  *****************************C
 
-      SUBROUTINE READAER
+      SUBROUTINE READAER 
 
 C     Purpose:  To read in IN_AER_RRTM, the file that contains input
 C               aerosol properties.
@@ -621,32 +622,37 @@ C               aerosol properties.
       INCLUDE 	'param.f'
       PARAMETER (MCMU = 32)
       real aerpar(3), ssa(nbands), asym(nbands), aod(mxlay),aod1(nbands)
-      real rl1(nbands), rl2(nbands), rlambda(nbands), specfac(nbands)
+      real rlambda(nbands), specfac(nbands)
+      real rnu0(16:29),rnu1(23:26)
+      real f1(23:26),od0(23:26),od1(23:26)
+      integer lay(mxlay),ivec(mxlay)
 
       COMMON /CONTROL/   IAER, NSTR, IOUT, ISTART, IEND, ICLD,
      &                   idelm, isccos
       COMMON /PROFILE/   NLAYERS,PAVEL(MXLAY),TAVEL(MXLAY),
      &                   PZ(0:MXLAY),TZ(0:MXLAY),TBOUND
+      COMMON /SWPROP/    ZENITH, ALBEDO, ADJFLUX(NBANDS)
       common /AERDAT/    ssaaer(mxlay,nbands), phase(mcmu,mxlay,nbands), 
-     &                   tauaer(mxlay,nbands)
+     &                   tauaer(mxlay,nbands), phase_in(mcmu,nbands)
       CHARACTER*1 CTEST, CPERCENT
 
       DATA CPERCENT /'%'/
 
-      integer lay(mxlay)
+      data rnu0 /2903.,3601.,4310.,4892.,5623.,6872.,7872.,
+     &               10590.,14420.,18970.,25015.,30390.,43507.,1412./
+
+       data rnu1 /10530.7,14293.3,18678.0,24475.1/
+
+       data f1/0.9929,0.9883,0.978,0.9696/
+       data od0/0.1084,0.167,0.245,0.3611/
+       data od1 /0.3144,0.4822,0.7013,1.0239/
 
       eps = 1.e-10
       IRDAER = 12
       OPEN(IRDAER,FILE='IN_AER_RRTM',FORM='FORMATTED')
 
-      do ib = ib1, ib2
-         DO 500 ILAY = 1, MXLAY
-            AOD(ILAY) = 0.
-            tauaer(ILAY,ib) = 0.
- 500     CONTINUE
-         rl1(ib) = 10000. / wavenum1(ib)	
-         rl2(ib) = 10000. / wavenum2(ib)	
-      enddo
+      aod(:) = 0.0
+      tauaer(:,ib1:ib2) = 0.0
 
 C     Read in number of different aerosol models option.
       read (irdaer, 9010) naer
@@ -654,7 +660,7 @@ c      if (naer .gt. 4) then
 c         print *, 'NAER (= ', naer, ') IS GREATER THAN 4'
 c         stop
 c      endif
-        
+
 c     For each aerosol read in optical properties and layer aerosol 
 c     optical depths.
       do ia = 1, naer
@@ -664,25 +670,14 @@ c     optical depths.
 c           Set defaults to get standard Angstrom relation.
             if (aerpar(2) .lt. eps) aerpar(2) = 1.
 
-            omaer  = 1. - aerpar(1)
             do ib = ib1, ib2
-               if (omaer .ne. 0.) then
-                  factor = 1. / omaer
-                  aodbar = factor *(rl2(ib)**omaer - rl1(ib)**omaer)/ 
-     &                 (rl2(ib) - rl1(ib))
-               else
-                  aodbar = alog(rl2(ib)/rl1(ib))/(rl2(ib) - rl1(ib))
-               endif
-               if (aerpar(1) .ne. 0.) then
-                  rlambda(ib) = (1. / aodbar) ** (1./ aerpar(1))
-               else
-                  rlambda(ib) = 1.0
-               endif
+	       rlambda(ib)=10000./rnu0(ib)
                specfac(ib) = (aerpar(2) + aerpar(3) * rlambda(ib)) /
      &              ((aerpar(2) + aerpar(3) - 1.) + 
      &              rlambda(ib)**aerpar(1))
             enddo
          endif
+
 C        For this aerosol, read in layers and optical depth information.
 C        Store a nonzero optical depth in aod to check for double
 C        specification.
@@ -692,7 +687,7 @@ C        specification.
                if (iaod .eq. 0) then
                   aod(lay(il)) = aod1(ib1)
                   do ib = ib1, ib2
-                     tauaer(lay(il),ib) = aod1(ib1) * specfac(ib)
+                     tauaer(lay(il),ib) = aod(lay(il)) * specfac(ib)
                   enddo
                else
                   do ib = ib1, ib2
@@ -707,6 +702,27 @@ C        specification.
             endif
          enddo
 
+c      Build vector of aerosol layer indices 
+
+       do il=1,nlay
+          ivec(il) = lay(il) 
+       end do
+
+c      Correct bands 23 through 26 for sza effect (negligible for others)
+         do ib=23,26
+            if (iaod.eq.0) then
+                od = sum(tauaer(ivec(1:nlay),ib))/zenith
+                rnu = rnu0(ib)+
+     &           (rnu1(ib)-rnu0(ib))*(od-od0(ib))/(od1(ib)-od0(ib))
+               rlambda_new=10000./rnu
+               specfac_new = (aerpar(2)+aerpar(3)*rlambda_new) /
+     &          ((aerpar(2)+aerpar(3)- 1.)+rlambda_new**aerpar(1))
+               do il=1,nlay
+                  tauaer(lay(il),ib) = tauaer(lay(il),ib)*
+     &			specfac_new/specfac(ib)
+               end do
+            endif
+         end do
 
 c        For this aerosol, read and store optical properties
          read (irdaer, 9013) (ssa(ib), ib = ib1,ib2)
@@ -736,15 +752,18 @@ c        For this aerosol, read and store optical properties
                enddo
  3000       CONTINUE
          else
+	    do istr = 1, nstr
+	       read (irdaer, 9013) (phase_in(istr,ib), 
+     &                 ib = ib1,ib2)
+	    enddo
             do il = 1, nlay
                do istr = 1, nstr
-                  read (irdaer, 9013) (phase(istr,lay(il),ib), 
-     &                 ib = ib1,ib2)
+                  phase(istr,lay(il),ib) = phase_in(istr,ib)
                enddo
             enddo
          endif
 
-      enddo
+      enddo    ! end of naer loop
 
 
  9000 CONTINUE
@@ -843,7 +862,7 @@ C     earth_sun_ratio 	: square of the ratio of mean to actual Earth-Sun distanc
 
 c   use Iqbal's equation 1.2.1 
 
-	earth_sun= 1.000110 + .034221 * cos(gamma) + .001289 * sin(gamma) +
+	earth_sun= 1.000110 + .034221 * cos(gamma) + .001289*sin(gamma)+
      1                 .000719 *cos(2.*gamma) + .000077 * sin(2.*gamma)
      
 	return 
@@ -958,7 +977,7 @@ c
       COMMON /CONSTS/ PI,PLANCK,BOLTZ,CLIGHT,AVOGAD,ALOSMT,GASCON,
      *                RADCN1,RADCN2 
 c
-      DATA PI / 3.1415927410125732 /
+      DATA PI / 3.14159265 /
 c
 c    Constants from NIST 01/11/2002
 c

@@ -1,10 +1,10 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/disort.f,v $
-C     revision:  $Revision: 2.4 $
-C     created:   $Date: 2004/04/15 18:50:55 $
+C     path:      $Source$
+C     revision:  $Revision$
+C     created:   $Date$
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c RCS version control information:
-c $Header: /storm/rc1/cvsroot/rc/rrtm_sw/src/disort.f,v 2.4 2004/04/15 18:50:55 jdelamer Exp $
+c $Header$
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       SUBROUTINE DISORT( NLYR, DTAUC, SSALB, NMOM, PMOM, TEMPER, WVNMLO,
@@ -361,7 +361,7 @@ c     .. Parameters ..
 
       INTEGER   MXCLY, MXULV, MXCMU, MXUMU, MXPHI, MI, MI9M2, NNLYRI,
      &          MXSQT
-      PARAMETER ( MXCLY = 110, MXULV = 110, MXCMU = 32, MXUMU = 32,
+      PARAMETER ( MXCLY = 400, MXULV = 400, MXCMU = 32, MXUMU = 32,
      &          MXPHI = 3, MI = MXCMU / 2, MI9M2 = 9*MI - 2,
      &          NNLYRI = MXCMU*MXCLY, MXSQT = 1000 )
 
@@ -451,7 +451,7 @@ c     ..
 
       CHARACTER*18       HNAMDIS,HVRDIS
 
-      HVRDIS = '$Revision: 2.4 $'
+      HVRDIS = '$Revision$'
 
 c      DELTAM = .TRUE.
       CORINT = .TRUE.
@@ -7468,7 +7468,7 @@ c ********** End of IBCND=1 special case routines ******************
 c ******************************************************************
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c RCS version control information:
-c $Header: /storm/rc1/cvsroot/rc/rrtm_sw/src/disort.f,v 2.4 2004/04/15 18:50:55 jdelamer Exp $
+c $Header$
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       REAL FUNCTION  BDREF( WVNMLO, WVNMHI, MU, MUP, DPHI )

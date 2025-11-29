@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/rtrdis.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 5.4 $
-C     created:   $Date: 2010/07/07 21:10:53 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 
       SUBROUTINE RTRDIS
 
@@ -79,7 +79,7 @@ c     Ensure all cloud properties are equal to 0.0
          XMOM(:,:,:) = 0.0
       ENDIF
          
-      HVRRDS = '$Revision: 5.4 $'
+      HVRRDS = '$Revision$'
       HEADER = ''
       USRTAU = .FALSE.
       USRANG = .FALSE.

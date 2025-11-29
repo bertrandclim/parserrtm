@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/rtrcld.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.4 $
-C     created:   $Date: 2010/07/07 21:10:52 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -38,7 +38,8 @@ C     Clouds are treated with random overlap scheme.
       COMMON /FEATURES/  NG(NBANDS),NSPA(NBANDS),NSPB(NBANDS)
       COMMON /BANDS/     WAVENUM1(NBANDS),WAVENUM2(NBANDS),
      &                   DELWAVE(NBANDS)
-      COMMON /CONTROL/   NUMANGS, IOUT, ISTART, IEND
+      COMMON /CONTROL/   NUMANGS, ISCAT,NSTR,
+     &                   IOUT, ISTART, IEND, ICLD
       COMMON /PROFILE/   NLAYERS,PAVEL(MXLAY),TAVEL(MXLAY),
      &                   PZ(0:MXLAY),TZ(0:MXLAY)
       COMMON /SURFACE/   TBOUND,IREFLECT,SEMISS(NBANDS)
@@ -84,7 +85,7 @@ C     quadrature is chosen.
       DATA WTDIFF /0.5/
       DATA REC_6 /0.166667/
 
-      HVRRTC = '$Revision: 3.4 $'
+      HVRRTC = '$Revision$'
 
       URAD(0) = 0.0
       DRAD(0) = 0.0
@@ -113,7 +114,9 @@ C     quadrature is chosen.
  200  CONTINUE
 
 C *** Loop over frequency bands.
+         print *,'istart,iend ',istart,iend 
       DO 6000 IBAND = ISTART, IEND
+         print *,'iband ',iband
          IF (NCBANDS .EQ. 1) THEN
             IB = IPAT(IBAND,0)
          ELSEIF (NCBANDS .EQ.  5) THEN

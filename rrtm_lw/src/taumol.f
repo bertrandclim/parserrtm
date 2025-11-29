@@ -1,7 +1,7 @@
 C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/taumol.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.6 $
-C     created:   $Date: 2010/07/07 21:10:53 $
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -212,7 +212,7 @@ C     Compute the optical depth by interpolating in ln(pressure) and
 C     temperature.  Below LAYTROP, the water vapor self-continuum and
 C     foreign continuum is interpolated (in temperature) separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
       DO 2500 LAY = 1, LAYTROP
 
          IND0 = ((JP(LAY)-1)*5+(JT(LAY)-1))*NSPA(1) + 1
@@ -345,7 +345,7 @@ C Planck fraction mapping level: P = 3.206e-2 mb, T = 197.92 K
 C     Compute the optical depth by interpolating in ln(pressure) and 
 C     temperature.  Below LAYTROP, the water vapor self-continuum and
 C     foreign continuum is interpolated (in temperature) separately.
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
          IND0 = ((JP(LAY)-1)*5+(JT(LAY)-1))*NSPA(2) + 1
@@ -420,7 +420,7 @@ C  Input
      &                  COLMOL(MXLAY),NMOL
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)  
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)            
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)            
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
       COMMON /REFRAT_ETA/ RAT_H2OCO2(MXLAY),RAT_H2OCO2_1(MXLAY),
      &                  RAT_H2OO3(MXLAY),RAT_H2OO3_1(MXLAY),
@@ -528,7 +528,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water vapor
 C     self-continuum and foreign continuum is interpolated (in temperature) 
 C     separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -815,7 +815,7 @@ C  Input
      &                  COLH2O(MXLAY),COLCO2(MXLAY),COLO3(MXLAY),  
      &                  COLN2O(MXLAY),COLCO(MXLAY),COLCH4(MXLAY),  
      &                  COLO2(MXLAY),COLBRD(MXLAY)
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
@@ -912,7 +912,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum and foreign continuum is interpolated (in temperature) 
 C     separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -1151,7 +1151,7 @@ C  Input
      &                  COLH2O(MXLAY),COLCO2(MXLAY),COLO3(MXLAY),  
      &                  COLN2O(MXLAY),COLCO(MXLAY),COLCH4(MXLAY),  
      &                  COLO2(MXLAY),COLBRD(MXLAY)
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /XSEC/     WX(MAXXSEC,MXLAY)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
@@ -1270,7 +1270,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the
 C     water vapor self-continuum and foreign continuum is 
 C     interpolated (in temperature) separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -1520,7 +1520,7 @@ C  Input
       COMMON /XSEC/     WX(MAXXSEC,MXLAY)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)            
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)            
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
       COMMON /SELF/     SELFFAC(MXLAY), SELFFRAC(MXLAY), INDSELF(MXLAY)
       COMMON /FOREIGN/  FORFAC(MXLAY), FORFRAC(MXLAY), INDFOR(MXLAY)
@@ -1573,7 +1573,7 @@ C     Compute the optical depth by interpolating in ln(pressure) and
 C     temperature. The water vapor self-continuum and foreign continuum
 C     is interpolated (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
  
       DO 2500 LAY = 1, LAYTROP
 
@@ -1660,7 +1660,7 @@ C  Input
      &                  COLMOL(MXLAY),NMOL
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY) 
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
       COMMON /REFRAT_ETA/ RAT_H2OCO2(MXLAY),RAT_H2OCO2_1(MXLAY),
      &                  RAT_H2OO3(MXLAY),RAT_H2OO3_1(MXLAY),
@@ -1748,7 +1748,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum and foreign continuum is interpolated 
 C     (in temperature) separately. 
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -2006,7 +2006,7 @@ C  Input
       COMMON /XSEC/     WX(MAXXSEC,MXLAY)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)            
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)            
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
       COMMON /SELF/     SELFFAC(MXLAY),SELFFRAC(MXLAY),INDSELF(MXLAY)
       COMMON /FOREIGN/  FORFAC(MXLAY), FORFRAC(MXLAY), INDFOR(MXLAY)
@@ -2066,7 +2066,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water vapor
 C     self-continuum and foreign continuum is interpolated (in temperature) 
 C     separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -2187,7 +2187,7 @@ C  Input
      &                  COLO2(MXLAY),COLBRD(MXLAY)
       COMMON /SPECIES/  COLDRY(MXLAY),WKL(MXMOL,MXLAY),WBROAD(MXLAY),
      &                  COLMOL(MXLAY),NMOL
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
@@ -2279,7 +2279,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum and foreign continuum is interpolated 
 C     (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -2550,7 +2550,7 @@ C     Compute the optical depth by interpolating in ln(pressure) and
 C     temperature.  Below LAYTROP, the water vapor self-continuum and
 C     foreign continuum is interpolated (in temperature) separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
          IND0 = ((JP(LAY)-1)*5+(JT(LAY)-1))*NSPA(10) + 1
@@ -2658,7 +2658,7 @@ C     Compute the optical depth by interpolating in ln(pressure) and
 C     temperature.  Below LAYTROP, the water vapor self-continuum and
 C     foreign continuum is interpolated (in temperature) separately.
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
          IND0 = ((JP(LAY)-1)*5+(JT(LAY)-1))*NSPA(11) + 1
@@ -2741,7 +2741,7 @@ C  Input
      &                  COLO2(MXLAY),COLBRD(MXLAY)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)  
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)            
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)            
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
       COMMON /REFRAT_ETA/ RAT_H2OCO2(MXLAY),RAT_H2OCO2_1(MXLAY),
      &                  RAT_H2OO3(MXLAY),RAT_H2OO3_1(MXLAY),
@@ -2813,7 +2813,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum adn foreign continuum is interpolated 
 C     (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -2999,7 +2999,7 @@ C  Input
      &                  COLO2(MXLAY),COLBRD(MXLAY)
       COMMON /SPECIES/  COLDRY(MXLAY),WKL(MXMOL,MXLAY),WBROAD(MXLAY),
      &                  COLMOL(MXLAY),NMOL
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
@@ -3094,7 +3094,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum and foreign continuum is interpolated 
 C     (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -3361,7 +3361,7 @@ C     Compute the optical depth by interpolating in ln(pressure) and
 C     temperature.  Below LAYTROP, the water vapor self-continuum 
 C     and foreign continuum is interpolated (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
          IND0 = ((JP(LAY)-1)*5+(JT(LAY)-1))*NSPA(14) + 1
@@ -3425,7 +3425,7 @@ C  Input
      &                  COLH2O(MXLAY),COLCO2(MXLAY),COLO3(MXLAY),  
      &                  COLN2O(MXLAY),COLCO(MXLAY),COLCH4(MXLAY),  
      &                  COLO2(MXLAY),COLBRD(MXLAY)
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /SPECIES/  COLDRY(MXLAY),WKL(MXMOL,MXLAY),WBROAD(MXLAY),
      &                  COLMOL(MXLAY),NMOL
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
@@ -3509,7 +3509,7 @@ C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum and foreign continuum is interpolated 
 C     (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 
@@ -3713,7 +3713,7 @@ C  Input
      &                  COLH2O(MXLAY),COLCO2(MXLAY),COLO3(MXLAY),  
      &                  COLN2O(MXLAY),COLCO(MXLAY),COLCH4(MXLAY),  
      &                  COLO2(MXLAY),COLBRD(MXLAY)
-      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(7,59)
+      COMMON /MLS_REF/  PREF(59),PREFLOG(59),TREF(59),CHI_MLS(9,59)
       COMMON /INTFAC/   FAC00(MXLAY),FAC01(MXLAY),                            
      &                  FAC10(MXLAY),FAC11(MXLAY)                             
       COMMON /INTIND/   JP(MXLAY),JT(MXLAY),JT1(MXLAY)
@@ -3795,7 +3795,7 @@ C     temperature,and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum and foreign continuum is interpolated 
 C     (in temperature) separately.  
 
-      HVRTAU = '$Revision: 3.6 $'
+      HVRTAU = '$Revision$'
 
       DO 2500 LAY = 1, LAYTROP
 

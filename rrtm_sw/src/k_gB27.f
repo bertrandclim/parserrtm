@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/k_gB27.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.3 $
-C     created:   $Date: 2004/04/15 18:50:57 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -22,7 +22,7 @@ C  --------------------------------------------------------------------------
       CHARACTER*18 HNAMKG27,HVRKG27
 
       DATA HNAMKG27 / '        k_gb27.f:' /
-      DATA HVRKG27 /'$Revision: 2.3 $'/
+      DATA HVRKG27 /'$Revision$'/
 
 C     The array KA contains absorption coefs at the 16 chosen g-values 
 C     for a range of pressure levels > ~100mb and temperatures.  The first

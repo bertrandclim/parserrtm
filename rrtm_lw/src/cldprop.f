@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/cldprop.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.3 $
-C     created:   $Date: 2010/07/07 21:10:51 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -118,7 +118,7 @@ C                   cloud optical depth (and if ISCAT=2) single-scattering albed
 C                   and phase-function moments are input for each band.	 
 
 
-      HVRCLD = '$Revision: 3.3 $'
+      HVRCLD = '$Revision$'
 
       ICLDATM = 0
       NCBANDS = 1

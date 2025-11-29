@@ -279,7 +279,9 @@ class InputSW(Input):
         formats = {
             '1.1':    '(1A80)',
             '1.2':    '(18X, I2, 29X, I1, 32X, I1, 1X, I1, 2X, I3, 4X, I1, 3X, I1, I1)',
-            '1.2.1':  '(12X, I3, F7.4, 4X, I1, 14F5.3)',
+            #RRTM_SW v2.7.5: '(12X, I3, 3X, F7.4, 4X, I1,14F7.5)'
+            #RRTM_SW v2.5: '(12X, I3, F7.4, 4X, I1, 14F5.3)'
+            '1.2.1':  '(12X, I3, 3X, F7.4, 4X, I1,14F7.5)',
             '1.4':    '(11X,  I1, 2X, I1, 14F5.3)',
             '2.1':    '(1X,I1, I3, I5)', #same as LW, conditional on IATM=0
             '2.1.1':  lambda self: f"({'F10.4' if self.IFORM==0 else 'ES15.7'}, F10.4, 23X, F8.3, F7.2,  7X, F8.3,   F7.2)", #same as LW

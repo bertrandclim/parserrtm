@@ -1,7 +1,7 @@
-C     $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/cldprop.f,v $
-C     $Author: jdelamer $
-C     $Revision: 2.7 $
-C     $Date: 2004/04/15 18:42:10 $
+C     $Source$
+C     $Author$
+C     $Revision$
+C     $Date$
       SUBROUTINE CLDPROP(ICLDATM)
 
 C
@@ -93,7 +93,7 @@ C                     Linear interpolation is used to get the absorption
 C                     coefficients for the input effective radius.
 C  
 
-      HVRCLD = '$Revision: 2.7 $'
+      HVRCLD = '$Revision$'
 
       ICLDATM = 0
       NCBANDS = 29

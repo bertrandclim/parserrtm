@@ -1,6 +1,6 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/ErrPack.f,v $
-C     revision:  $Revision: 5.1 $
-C     created:   $Date: 2004/07/29 16:49:49 $
+C     path:      $Source$
+C     revision:  $Revision$
+C     created:   $Date$
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c This module is part of the DISORT package, Version 2.0.  See
@@ -11,7 +11,7 @@ c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c RCS version control information:
-c $Header: /storm/rc1/cvsroot/rc/rrtm_lw/src/ErrPack.f,v 5.1 2004/07/29 16:49:49 jdelamer Exp $
+c $Header$
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       SUBROUTINE  ErrMsg( MESSAG, FATAL )
@@ -28,7 +28,7 @@ c        Print out a warning or error message;  abort if error
 
       CHARACTER*18 HNAMERR,HVRERR
 
-      HVRERR = '$Revision: 5.1 $'
+      HVRERR = '$Revision$'
 
 
       IF ( FATAL )  THEN

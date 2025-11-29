@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/extra.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.3 $
-C     created:   $Date: 2010/07/07 21:10:51 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
       SUBROUTINE XSREAD (XV1,XV2)                                         E00010
 C                                                                         E00020
       IMPLICIT DOUBLE PRECISION (V)                                     ! E00030
@@ -58,7 +58,7 @@ C     T296 IS TEMPERATURE FOR INITAL CALCULATIN OF DOPPLER WIDTHS         E00412
 C                                                                         E00413
       DATA T296 / 296.0 /                                                 E00414
 C
-      HVREXT = '$Revision: 3.3 $'
+      HVREXT = '$Revision$'
 C                                                                         E00420
       IXMAX = MX_XS                                                       E00430
       DO 10 I = 1, IXMAX                                                  E00440

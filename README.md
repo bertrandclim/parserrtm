@@ -1,13 +1,13 @@
 # parserrtm
-A high-level interface for running the Rapid Radiative Transfer Model (RRTM) in Python, both longwave (RRTM_LW) and shortwave (RRTM_SW) versions. A high-level interface helps because the Fortran text file inputs are unreadable by humans and have a complicated structure. With this library, all you interact with are named input parameters and calculation results. The strength of `parserrtm` is that it supports (almost) every possible configuration of both models.
+A high-level interface for running the Rapid Radiative Transfer Model (RRTM) in Python, both longwave (RRTM_LW) and shortwave (RRTM_SW) versions. A high-level interface helps because the Fortran text file inputs are unreadable by humans and have a complicated structure. With this library, all you interact with are named input parameters and calculation results. The strength of `parserrtm` is that it supports (almost) every possible configuration of both models (reach out if a configuration you need isn't supported!).
 
 With `parserrtm`, you can simply take an existing example input file and modify the field of interest to you by name. The library takes care of underlying file I/O and just gives you a dataset with the results of your calculation.
 
 # installing parserrtm
 
-Two components are needed: (1) this Python library and (2) executables for the RRTM Fortran codes. The Python library is easy to install and linux binaries of the RRTM executables are distributed in `/rrtm_lw/` and `/rrtm_sw/`. 
+Two components are needed: (1) this Python library and (2) executables for the RRTM Fortran codes. The Python library is easy to install and I have a [compilation guide](https://github.com/bertrandclim/parserrtm/blob/main/rrtm_compiling_guide.md) for getting the RRTM executables from `/rrtm_lw/` and `/rrtm_sw/`.
 
-For MacOS, I reccomend using `lima` for a Linux virtual machine. If the binaries don't work on your system, you will need to compile RRTM from source (see `rrtm_compiling_guide.md`).
+I've only ever successfully compiled RRTM on linux with the PGI/NVIDIA compiler, so if you're on another OS I'd reccomend using a virtual machine (like `lima` for macOS).
 
 ## from pypi
 ```

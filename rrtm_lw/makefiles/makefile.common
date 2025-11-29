@@ -1,4 +1,4 @@
-# $Revision: 1.2 $
+# $Revision$
 # USER INPUT: To be used with the make_rrtm file, also in this directory.
 # RUN MAKEFILE from parent directory using make -f makefiles/make_rrtm
 
@@ -12,7 +12,7 @@ FC_TYPE = pgi
 #FC_TYPE =  mips
 
 #Set version Name
-VERSION = v3.3
+VERSION = v3.3.1
 
 # Set name of RRTM executable
 OUTPUT = rrtm_$(VERSION)_$(PLTFRM)_$(FC)
@@ -22,7 +22,7 @@ OUTPUT = rrtm_$(VERSION)_$(PLTFRM)_$(FC)
 CPATH = src
 
 # Set directory for object files
-CDOTO = $(PLTFRM)_$(FC)_$(VERSION).obj
+CDOTO = makefiles/$(PLTFRM)_$(FC)_$(VERSION).obj
 
 #PLATFORM := $(shell uname)
 PLATFORM=$(shell uname)
@@ -36,7 +36,7 @@ ifeq ($(PLATFORM),Darwin)
 # Open source GNU Fortran 95/2003 compiler
 		ifeq ($(FC_TYPE),gnu)
 			FC = gfortran
-			FCFLAG =   -fdefault-integer-8 -fdefault-real-8 -Wall -frecord-marker=4 -std=legacy
+			FCFLAG =   -fdefault-integer-8 -fdefault-real-8 -Wall -frecord-marker=4     
 			UTIL_FILE = util_gfortran.f
 		endif
 # IBM XL Fortran
@@ -65,11 +65,6 @@ endif
 ifeq ($(PLATFORM),Linux)
      PLTFRM = linux
 
-     ifeq ($(FC_TYPE),gnu)
-		FC = gfortran
-		FCFLAG =   -fdefault-integer-8 -fdefault-real-8 -Wall -frecord-marker=4 -std=legacy
-		UTIL_FILE = util_gfortran.f
-     endif
 # Portland Group Compiler
      ifeq ($(FC_TYPE),pgi)
 		FC = pgf90

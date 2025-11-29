@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/extra.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.3 $
-C     created:   $Date: 2004/04/15 18:50:56 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
       SUBROUTINE XSREAD (XV1,XV2)                                         E00010
 C                                                                         E00020
       IMPLICIT DOUBLE PRECISION (V)                                     ! E00030
@@ -14,7 +14,7 @@ C**********************************************************************   E00090
 C                                                                         E00100
 C     IFIL CARRIES FILE INFORMATION                                       E00110
 C                                                                         E00120
-      PARAMETER (MXFSC=200, MXLAY=MXFSC+3,MXZMD=3400,
+      PARAMETER (MXFSC=400, MXLAY=MXFSC+3,MXZMD=3400,
      *           MXPDIM=MXLAY+MXZMD,IM2=MXPDIM-2,MXMOL=38,MXTRAC=22)
 C
       COMMON /IFIL/ IRD,IPR,IPU,NOPR,NFHDRF,NPHDRF,NFHDRL,NPHDRL,         E00130
@@ -40,9 +40,9 @@ C                                                                         E00280
      *                IXFORM(5,MXMOL),
      *                XSMASS(MXMOL),XDOPLR(5,MXMOL),NUMXS,IXSBIN          E00325
 
-      COMMON /CVREXT/    HVREXT
+      COMMON /CVREXT/    HNAMEXT,HVREXT
 
-      CHARACTER*15       HVREXT
+      CHARACTER*18       HNAMEXT,HVREXT
 C                                                                         E00330
       DIMENSION IXFLG(MXMOL)                                              E00340
 C                                                                         E00350
@@ -57,7 +57,7 @@ C     T296 IS TEMPERATURE FOR INITAL CALCULATIN OF DOPPLER WIDTHS         E00412
 C                                                                         E00413
       DATA T296 / 296.0 /                                                 E00414
 C
-      HVREXT = '$Revision: 2.3 $'
+      HVREXT = '$Revision$'
 C                                                                         E00420
       IXMAX = MXMOL                                                       E00430
       DO 10 I = 1, IXMAX                                                  E00440
@@ -184,6 +184,11 @@ C                                                                         E02060
       CHARACTER*25 CTEMP                                                  E02070
       CHARACTER*1  CTEMP1(25),BLANK                                       E02080
       EQUIVALENCE (CTEMP,CTEMP1(1))                                       E02090
+
+      COMMON /CVREXT/    HNAMEXT,HVREXT
+
+      CHARACTER*18       HNAMEXT,HVREXT
+
 C                                                                         E02100
       DATA BLANK / ' '/                                                   E02110
 C                                                                         E02120
@@ -221,6 +226,11 @@ C     THIS SUBROUTINE EXPONENTIALLY INTERPOLATES X1 AND X2 TO X BY        A10630
 C     THE FACTOR A                                                        A10640
 C**********************************************************************   A10650
 C                                                                         A10660
+
+      COMMON /CVREXT/    HNAMEXT,HVREXT
+
+      CHARACTER*18       HNAMEXT,HVREXT
+
       IF (X1.EQ.0.0.OR.X2.EQ.0.0) GO TO 10                                A10670
       X = X1*(X2/X1)**A                                                   A10680
 C                                                                         A10690

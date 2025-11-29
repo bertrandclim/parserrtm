@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/k_gB28.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.3 $
-C     created:   $Date: 2004/04/15 18:50:57 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -22,7 +22,7 @@ C  --------------------------------------------------------------------------
       CHARACTER*18 HNAMKG28,HVRKG28
 
       DATA HNAMKG28 / '        k_gb28.f:' /
-      DATA HVRKG28 /'$Revision: 2.3 $'/
+      DATA HVRKG28 /'$Revision$'/
 
 C     The array KA contains absorption coefs for each of the 16 g-intervals
 C     for a range of pressure levels > ~100mb, temperatures, and ratios

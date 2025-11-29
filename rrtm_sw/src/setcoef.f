@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/setcoef.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.6 $
-C     created:   $Date: 2004/04/15 18:50:57 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
       SUBROUTINE SETCOEF
 C
 C  --------------------------------------------------------------------------
@@ -18,7 +18,7 @@ C     Purpose:  For a given atmosphere, calculate the indices and
 C     fractions related to the pressure and temperature interpolations.
 
       PARAMETER (MXMOL=38)
-      PARAMETER (MXLAY = 203)
+      PARAMETER (MXLAY = 403)
       PARAMETER (MG =16)
 
 C  Input      
@@ -97,7 +97,7 @@ C     pressures for the MLS standard atmosphere.
 
 
 C ****************** START OF EXECUTABLE CODE ***************************
-      HVRSET = '$Revision: 2.6 $'
+      HVRSET = '$Revision$'
 
       STPFAC = 296./1013.
 

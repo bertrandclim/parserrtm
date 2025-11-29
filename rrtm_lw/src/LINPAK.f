@@ -1,6 +1,6 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/LINPAK.f,v $
-C     revision:  $Revision: 5.2 $
-C     created:   $Date: 2004/07/29 17:15:21 $
+C     path:      $Source$
+C     revision:  $Revision$
+C     created:   $Date$
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c This module is part of the DISORT package, Version 2.0.  See
@@ -11,7 +11,7 @@ c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c RCS version control information:
-c $Header: /storm/rc1/cvsroot/rc/rrtm_lw/src/LINPAK.f,v 5.2 2004/07/29 17:15:21 jdelamer Exp $
+c $Header$
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 c Call tree:
@@ -1156,7 +1156,7 @@ c     ..
 
       CHARACTER*18       HNAMLPK,HVRLPK
 
-      HVRLPK = '$Revision: 5.2 $'
+      HVRLPK = '$Revision$'
 
       NM1  = N - 1
 

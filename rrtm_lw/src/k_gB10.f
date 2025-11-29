@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/k_gB10.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.2 $
-C     created:   $Date: 2010/07/07 21:10:52 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -24,7 +24,7 @@ C  --------------------------------------------------------------------------
 
       CHARACTER*18 HNAMKG10
 
-      DATA HVRKG10  / '$Revision: 3.2 $' /
+      DATA HVRKG10  / '$Revision$' /
       DATA HNAMKG10 / '         k_gB10.f:' /
 
 C     The array KA contains absorption coefs at the 16 chosen g-values 

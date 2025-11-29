@@ -1,6 +1,6 @@
 C     path:      %P%
-C     revision:  $Revision: 7.02 $
-C     created:   $Date: 2003/02/10 21:18:41 $  
+C     revision:  $Revision: 10481 $
+C     created:   $Date: 2004-05-27 13:46:59 -0400 (Thu, 27 May 2004) $  
 C     presently: %H%  %T%
 c______________________________________________________________________________
 
@@ -13,12 +13,12 @@ C                                                                        LN05220
 
       COMMON /CVRUTL/ HNAMUTL,HVRUTL
 C
-      CHARACTER*158HNAMUTL,HVRUTL
+      CHARACTER*18 HNAMUTL,HVRUTL
 C
 C     ASSIGN NAME and CVS VERSION NUMBER TO MODULE 
 C
       HNAMUTL= ' util_linux_pgi.f:'
-      HVRUTL = '$Revision: 7.02 $' 
+      HVRUTL = '$Revision: 10481 $' 
 
 C                                                                        LN05240
       CALL IDATE(iday,imon,iyear) 

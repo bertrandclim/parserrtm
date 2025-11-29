@@ -1,7 +1,7 @@
 C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/rrtm.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.6 $
-C     created:   $Date: 2010/07/07 21:10:52 $
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -194,7 +194,7 @@ C     is multiplied by W m-2 mb-1.
       IWR = 10
       PAGE = CHAR(12)
 
-      HVRRTM = '$Revision: 3.6 $'
+      HVRRTM = '$Revision$'
 
 C     Open the INPUT set of atmospheres
       IRD = 9

@@ -20,9 +20,9 @@
 
   Modules and versions used in this calculation:
 
-                                                                                           
-                         $Revision: 2.6 $                  taumoldis.f:  $Revision: 2.5 $  
-      util_linux_pgi.f:                                      cldprop.f:  $Revision: 2.7 $  
+                rrtm.f:  $Revision: 2.10 $                    rrtatm.f:  $Revision: 5.14 $ 
+             setcoef.f:  $Revision: 2.6 $                  taumoldis.f:  $Revision: 2.5 $  
+            util_sgi.f:  $Revision: 7.02 $                   cldprop.f:  $Revision: 2.7 $  
               rtrdis.f:  $Revision: 2.6 $                     disort.f:  $Revision: 2.4 $  
             RDI1MACH.f:  NOT USED                            ErrPack.f:  NOT USED          
               LINPAK.f:  $Revision: 2.3 $                      extra.f:  NOT USED          

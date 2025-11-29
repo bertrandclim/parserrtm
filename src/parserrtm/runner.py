@@ -28,7 +28,7 @@ class Runner:
         #pick unqiue identifier
         self.uid = '{:04d}'.format(np.random.randint(10000))
         #remove other worker directories
-        if self.clean: 
+        if self.clean:
             Runner.rmdirs(self.tmp_path,'any')
         else:
             Runner.rmdirs(self.tmp_path,self.uid)
@@ -52,7 +52,7 @@ class Runner:
             subprocess.run(['ln','-s',(exec_path).resolve(),'rrtm'],cwd=p,check=True)
         return
 
-    def rmdirs(path,uid,rms=['OUTPUT_RRTM','INPUT_RRTM','IN_CLD_RRTM',
+    def rmdirs(path,uid,rms=['OUTPUT_RRTM','INPUT_RRTM','IN_CLD_RRTM',"'&1'",r'\&1',
                              'OUT_CLD_RRTM','TAPE6','TAPE7','rrtm.log','rrtm']):
         '''remove unused rrtm worker directories'''
 

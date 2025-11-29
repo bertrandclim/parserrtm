@@ -1,0 +1,25 @@
+ Wavenumbers:   10.0 - 3250.0 cm-1, ATM      1
+ LEVEL    PRESSURE   UPWARD FLUX   DOWNWARD FLUX    NET FLUX       HEATING RATE
+             mb          W/m2          W/m2           W/m2          degree/day
+   0         .000000     0.0000        0.0000         0.0000000            0.00000
+
+  Modules and versions used in this calculation:
+
+                rrtm.f:  $Revision$                           rrtatm.f:  NOT USED          
+                 rtr.f:  $Revision$                           rtrcld.f:  NOT USED          
+               rtreg.f:  NOT USED                           rtregcld.f:  NOT USED          
+            rtrcldmr.f:  NOT USED                         rtregcldmr.f:  NOT USED          
+             setcoef.f:  $Revision$                          cldprop.f:  NOT USED          
+            util_xxx.f:  NOT USED                             taumol.f:  $Revision$        
+              rtrdis.f:  NOT USED                             disort.f:  NOT USED          
+               extra.f:  NOT USED                            ErrPack.f:  NOT USED          
+              LINPAK.f:  NOT USED                           RDI1MACH.f:  NOT USED          
+              k_gB01.f:  $Revision$                           k_gB02.f:  $Revision$        
+              k_gB03.f:  $Revision$                           k_gB04.f:  $Revision$        
+              k_gB05.f:  $Revision$                           k_gB06.f:  $Revision$        
+              k_gB07.f:  $Revision$                           k_gB08.f:  $Revision$        
+              k_gB09.f:  $Revision$                           k_gB10.f:  $Revision$        
+              k_gB11.f:  $Revision$                           k_gB12.f:  $Revision$        
+              k_gB13.f:  $Revision$                           k_gB14.f:  $Revision$        
+              k_gB15.f:  $Revision$                           k_gB16.f:  $Revision$        
+

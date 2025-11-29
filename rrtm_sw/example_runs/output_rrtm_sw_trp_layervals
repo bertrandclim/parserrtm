@@ -1,0 +1,36 @@
+
+ The downwelling direct and diffuse fluxes have been computed using the delta-M scaling approximation.
+ Wavenumbers:   820. - 50000. cm-1
+ LEVEL PRESSURE   UPWARD FLUX   DIFDOWN FLUX  DIRDOWN FLUX  DOWNWARD FLUX   NET FLUX    HEATING RATE
+          mb          W/m2          W/m2          W/m2          W/m2          W/m2       degree/day
+  13    .06485      130.7289        0.0000      684.6694      684.6694     553.940502       0.00000
+  12     1.170      130.7009        0.1118      681.2199      681.3317     550.630819      25.26768
+  11     21.57      131.1101        1.8818      665.3022      667.1841     536.073960       6.02253
+  10     102.0      129.2564        8.3509      648.4172      656.7681     527.511707       0.89837
+   9     245.0      123.7793       18.5670      626.7614      645.3283     521.549050       0.35193
+   8     375.5      118.5948       26.4940      597.4854      623.9794     505.384531       1.04542
+   7     489.9      114.0350       32.5065      567.6753      600.1818     486.146775       1.41889
+   6     630.7      108.5270       38.8476      530.5735      569.4211     460.894077       1.51310
+   5     712.4      105.4532       42.0319      509.5186      551.5504     446.097265       1.52879
+   4     802.9      102.3221       45.1389      485.0607      530.1996     427.877475       1.69925
+   3     851.7      100.8020       46.6413      471.9741      518.6154     417.813420       1.74054
+   2     902.9       99.3306       48.1020      459.2002      507.3021     407.971576       1.62055
+   1     956.7       97.9880       49.5050      446.5762      496.0812     398.093243       1.55137
+   0    1013.0       96.9683       50.8321      434.0093      484.8414     387.873091       1.53141
+
+  Modules and versions used in this calculation:
+
+                rrtm.f:  $Revision$                           rrtatm.f:  NOT USED          
+             setcoef.f:  $Revision$                        taumoldis.f:  $Revision$        
+            util_xxx.f:  NOT USED                            cldprop.f:  NOT USED          
+              rtrdis.f:  $Revision$                           disort.f:  $Revision$        
+            RDI1MACH.f:  $Revision$                          ErrPack.f:  NOT USED          
+              LINPAK.f:  $Revision$                            extra.f:  NOT USED          
+             k_gb16.f:   $Revision$                          k_gb17.f:   $Revision$        
+             k_gb18.f:   $Revision$                          k_gb19.f:   $Revision$        
+             k_gb20.f:   $Revision$                          k_gb21.f:   $Revision$        
+             k_gb22.f:   $Revision$                          k_gb23.f:   $Revision$        
+             k_gb24.f:   $Revision$                          k_gb25.f:   $Revision$        
+                                                             k_gb27.f:   $Revision$        
+             k_gb28.f:   $Revision$                          k_gb29.f:   $Revision$        
+

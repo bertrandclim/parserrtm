@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/taumoldis.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 2.5 $
-C     created:   $Date: 2004/04/15 18:50:57 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 
 C
 C  --------------------------------------------------------------------------
@@ -134,7 +134,7 @@ C  --------------------------------------------------------------------------
 
 C     BAND 16:  2600-3250 cm-1 (low - H2O,CH4; high - CH4)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -182,7 +182,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT1 = 252.131
       LAYREFFR = 18
 
@@ -260,7 +260,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 17:  3250-4000 cm-1 (low - H2O,CO2; high - H2O,CO2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -324,7 +324,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA,KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 0.364641
       LAYREFFR = 30
 
@@ -424,7 +424,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 18:  4000-4650 cm-1 (low - H2O,CH4; high - CH4)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -504,7 +504,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 38.9589
       LAYREFFR = 6
 
@@ -581,7 +581,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 19:  4650-5150 cm-1 (low - H2O,CO2; high - CO2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -662,7 +662,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 5.49281
       LAYREFFR = 3
 
@@ -740,7 +740,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 20:  5150-6150 cm-1 (low - H2O; high - H2O)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -794,7 +794,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       LAYREFFR = 3
 C     Compute the optical depth by interpolating in ln(pressure), 
 C     temperature, and appropriate species.  Below LAYTROP, the water
@@ -857,7 +857,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 21:  6150-7700 cm-1 (low - H2O,CO2; high - H2O,CO2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -937,7 +937,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA,KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 0.0045321
       LAYREFFR = 8
 
@@ -1037,7 +1037,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 22:  7700-8050 cm-1 (low - H2O,O2; high - O2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1116,7 +1116,7 @@ C     Kurucz
      &     5.31792E-02, 3.44955E-02, 1.30189E-02, 1.84551E-03/
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 0.022708
       LAYREFFR = 2
 C     The following factor is the ratio of total O2 band intensity (lines 
@@ -1202,7 +1202,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 23:  8050-12850 cm-1 (low - H2O; high - nothing)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1250,7 +1250,7 @@ C     Kurucz
  
       EQUIVALENCE (KA,ABSA)
       REAL KA
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       LAYREFFR = 6
 C     Average Giver et al. correction factor for this band.
       GIVFAC = 1.029
@@ -1300,7 +1300,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 24:  12850-16000 cm-1 (low - H2O,O2; high - O2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1432,7 +1432,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 0.124692
       LAYREFFR = 1
 
@@ -1513,7 +1513,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 25:  16000-22650 cm-1 (low - H2O; high - nothing)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1572,7 +1572,7 @@ c     Kurucz
       EQUIVALENCE (KA,ABSA)
 
       REAL KA
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       LAYREFFR = 2
 
 C     Compute the optical depth by interpolating in ln(pressure), 
@@ -1616,7 +1616,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 26:  22650-29000 cm-1 (low - nothing; high - nothing)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1661,7 +1661,7 @@ c     &     129.462, 15*0.0/
      &     3.49829,0.407693,0.299027,0.236827,
      &     0.188502,0.163489,4.64335E-02,2.72662E-03/
 
-      HVRTAU = '$Revision: 2.5 $' 
+      HVRTAU = '$Revision$' 
 C     Compute the optical depth by interpolating in ln(pressure), 
 C     temperature, and appropriate species.  Below LAYTROP, the water
 C     vapor self-continuum is interpolated (in temperature) separately.  
@@ -1690,7 +1690,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 27:  29000-38000 cm-1 (low - O3; high - O3)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1746,7 +1746,7 @@ C     Kurucz
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       LAYREFFR = 32
       SCALEKUR = 50.15/48.37
 
@@ -1796,7 +1796,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 28:  38000-50000 cm-1 (low - O3,O2; high - O3,O2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1854,7 +1854,7 @@ C     Kurucz
      &     1.44818E-02, 1.01048E-02, 4.97487E-03, 5.66831E-04/
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       STRRAT = 6.67029E-7
       LAYREFFR = 58
 C     Compute the optical depth by interpolating in ln(pressure), 
@@ -1890,6 +1890,8 @@ C     vapor self-continuum is interpolated (in temperature) separately.
      &           FAC011 * ABSA(IND1+9,IG) +
      &           FAC111 * ABSA(IND1+10,IG))
      &           + TAURAY
+	    IF (TAUG(LAY,IG) - TAURAY .LT. 0.0)
+     &		 TAUG(LAY,IG) = TAURAY
             SSA(LAY,IG) = TAURAY/TAUG(LAY,IG)
  2000    CONTINUE
  2500 CONTINUE
@@ -1941,7 +1943,7 @@ C----------------------------------------------------------------------------
 
 C     BAND 29:  820-2600 cm-1 (low - H2O; high - CO2)
 
-      PARAMETER (MG=16, MXLAY=203, NBANDS=14, MXMOL=38)
+      PARAMETER (MG=16, MXLAY=403, NBANDS=14, MXMOL=38)
 
 C  Output
 
@@ -1999,7 +2001,7 @@ C     Rayleigh extinction coefficient at v = 2200 cm-1.
       EQUIVALENCE (KA,ABSA),(KB,ABSB)
 
       REAL KA, KB
-      HVRTAU = '$Revision: 2.5 $'
+      HVRTAU = '$Revision$'
       LAYREFFR = 49
 C     Compute the optical depth by interpolating in ln(pressure), 
 C     temperature, and appropriate species.  Below LAYTROP, the water

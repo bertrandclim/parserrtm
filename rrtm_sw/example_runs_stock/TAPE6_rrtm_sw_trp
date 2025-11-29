@@ -1,4 +1,4 @@
-1                    *****PROGRAM LBLATM*****       25/18/11       18:06:47
+1                    *****PROGRAM LBLATM*****       04/19/04       13:05:21
 
 
 
@@ -290,7 +290,7 @@
           ANGLE      =     0.000000 DEG
           sin(ANGLE) =     0.000000
           PHI        =   180.000000 DEG
-          sin(PHI)   =    -0.000000
+          sin(PHI)   =     0.000000
           HMIN       =     0.000000 KM
           LEN        =          0
 

@@ -1,6 +1,6 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/disort.f,v $
-C     revision:  $Revision: 5.1 $
-C     created:   $Date: 2004/07/29 16:49:49 $
+C     path:      $Source$
+C     revision:  $Revision$
+C     created:   $Date$
 
 
 c *******************************************************************
@@ -15,7 +15,7 @@ c *******************************************************************
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c RCS version control information:
-c $Header: /storm/rc1/cvsroot/rc/rrtm_lw/src/disort.f,v 5.1 2004/07/29 16:49:49 jdelamer Exp $
+c $Header$
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       SUBROUTINE DISORT_LW( NLYR, FRACSREV, 
@@ -462,7 +462,7 @@ c     ..
 
       CHARACTER*18       HNAMDIS,HVRDIS
 
-      HVRDIS = '$Revision: 5.1 $'
+      HVRDIS = '$Revision$'
 
       DELTAM = .TRUE.
       CORINT = .TRUE.
@@ -7415,7 +7415,7 @@ c ******************************************************************
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c RCS version control information:
-c $Header: /storm/rc1/cvsroot/rc/rrtm_lw/src/disort.f,v 5.1 2004/07/29 16:49:49 jdelamer Exp $
+c $Header$
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       REAL FUNCTION  BDREF(ALBEDO, MU, MUP, DPHI )

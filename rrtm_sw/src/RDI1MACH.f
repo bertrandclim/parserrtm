@@ -1,6 +1,6 @@
-C     $Source: /storm/rc1/cvsroot/rc/rrtm_sw/src/RDI1MACH.f,v $
-C     $Revision: 5.1 $
-C     $Date: 2004/04/15 18:50:55 $
+C     $Source$
+C     $Revision$
+C     $Date$
 
 c ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 c This module is part of the DISORT package, Version 2.0.  See
@@ -88,7 +88,7 @@ c --------------------------------------------------------------------
 
       CHARACTER*18       HNAMRDI,HVRRDI
 
-      HVRRDI = '$Revision: 5.1 $'
+      HVRRDI = '$Revision$'
 
       B = RADIX(X)
 
@@ -152,6 +152,12 @@ c --------------------------------------------------------------------
       IMPLICIT NONE
       INTEGER :: I
       DOUBLE PRECISION :: B, X = 1.D0
+
+      COMMON /CVRRDI/    HNAMRDI,HVRRDI
+
+      CHARACTER*18       HNAMRDI,HVRRDI
+
+      HVRRDI = '$Revision$'
 
       B = RADIX(X)
 

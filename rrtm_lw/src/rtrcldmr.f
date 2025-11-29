@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/rtrcldmr.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.4 $
-C     created:   $Date: 2010/07/07 21:10:53 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -88,7 +88,7 @@ C     quadrature is chosen.
       DATA WTDIFF /0.5/
       DATA REC_6 /0.166667/
 
-      HVRRTX = '$Revision: 3.4 $'
+      HVRRTX = '$Revision$'
 
       URAD(0) = 0.0
       DRAD(0) = 0.0

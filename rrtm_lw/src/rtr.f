@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/rtr.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.3 $
-C     created:   $Date: 2010/07/07 21:10:53 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 C
 C  --------------------------------------------------------------------------
 C |                                                                          |
@@ -58,7 +58,7 @@ C     Gaussian quadrature.
       DIMENSION UFLUX(0:MXLAY),DFLUX(0:MXLAY)
       DIMENSION DRAD1(0:MXLAY),URAD1(0:MXLAY)
 
-      HVRRTR = '$Revision: 3.3 $'
+      HVRRTR = '$Revision$'
 
       DATA SECDIFF /1.66/
       DATA WTDIFF /0.5/

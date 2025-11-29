@@ -1,0 +1,36 @@
+
+ The downwelling direct and diffuse fluxes have been computed using the delta-M scaling approximation.
+ Wavenumbers:   820. - 50000. cm-1
+ LEVEL PRESSURE   UPWARD FLUX   DIFDOWN FLUX  DIRDOWN FLUX  DOWNWARD FLUX   NET FLUX    HEATING RATE
+          mb          W/m2          W/m2          W/m2          W/m2          W/m2       degree/day
+  13    .06485      176.4486        0.0000      684.6694      684.6694     508.220755       0.00000
+  12     1.170      176.4329        0.1156      681.2199      681.3355     504.902653      25.33193
+  11     21.57      177.3051        1.9561      665.3022      667.2583     489.953170       6.18496
+  10     102.0      119.4036      305.3181      282.8790      588.1972     468.793530       2.22012
+   9     245.0      113.6546      304.3663      273.3169      577.6832     464.028644       0.28124
+   8     375.5      108.4608      298.5768      260.7127      559.2895     450.828713       0.85369
+   7     489.9      103.9985      290.8208      247.9239      538.7446     434.746114       1.18618
+   6     630.7       98.6900      280.0767      231.9753      512.0520     413.362064       1.28130
+   5     712.4       95.7527      273.5482      222.9119      496.4601     400.707416       1.30745
+   4     802.9       92.7653      265.4178      212.3874      477.8053     385.039972       1.46122
+   3     851.7       91.3122      260.9427      206.7530      467.6958     376.383521       1.49710
+   2     902.9       89.9035      256.5582      201.2450      457.8032     367.899689       1.39694
+   1     956.7       88.6117      252.1690      195.7958      447.9648     359.353074       1.34226
+   0    1013.0       87.6157      247.7128      190.3656      438.0784     350.462749       1.33212
+
+  Modules and versions used in this calculation:
+
+                rrtm.f:  $Revision$                           rrtatm.f:  $Revision$        
+             setcoef.f:  $Revision$                        taumoldis.f:  $Revision$        
+      util_linux_pgi.f:  $Revision: 10481 $                  cldprop.f:  $Revision$        
+              rtrdis.f:  $Revision$                           disort.f:  $Revision$        
+            RDI1MACH.f:  $Revision$                          ErrPack.f:  NOT USED          
+              LINPAK.f:  $Revision$                            extra.f:  NOT USED          
+             k_gb16.f:   $Revision$                          k_gb17.f:   $Revision$        
+             k_gb18.f:   $Revision$                          k_gb19.f:   $Revision$        
+             k_gb20.f:   $Revision$                          k_gb21.f:   $Revision$        
+             k_gb22.f:   $Revision$                          k_gb23.f:   $Revision$        
+             k_gb24.f:   $Revision$                          k_gb25.f:   $Revision$        
+                                                             k_gb27.f:   $Revision$        
+             k_gb28.f:   $Revision$                          k_gb29.f:   $Revision$        
+

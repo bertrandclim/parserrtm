@@ -1,5 +1,5 @@
 #!/bin/csh
-set rrtm_prog = ../rrtm_sw_linux_pgi_v2.5
+set rrtm_prog = rrtm_sw_sgi_v2.5
 
 #Run RRTM_SW for 8 example cases
 

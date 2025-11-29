@@ -1,7 +1,7 @@
-C     path:      $Source: /storm/rc1/cvsroot/rc/rrtm_lw/src/k_g.f,v $
-C     author:    $Author: jdelamer $
-C     revision:  $Revision: 3.1 $
-C     created:   $Date: 2004/07/29 16:49:49 $
+C     path:      $Source$
+C     author:    $Author$
+C     revision:  $Revision$
+C     created:   $Date$
 ****************************************************************************
 C
 C  --------------------------------------------------------------------------
