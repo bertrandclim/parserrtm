@@ -260,7 +260,7 @@ class Input(ABC):
         elif file == 'aer':
             files = ('input_rrtm','in_aer_rrtm')
         elif file == 'aercld':
-            files == ('input_rrtm','in_aer_rrtm')
+            files == ('input_rrtm','in_cld_rrtm','in_aer_rrtm')
         else:
             files = [file]
         for file in files:
