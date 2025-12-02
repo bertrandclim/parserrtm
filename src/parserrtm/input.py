@@ -254,13 +254,13 @@ class Input(ABC):
             - aercld: input_rrtm, in_cld_rrtm, and in_aer_rrtm
         '''
         if file == 'cld':
-            files = ('input_rrtm','in_cld_rrtm')
+            files = ['input_rrtm','in_cld_rrtm']
         elif file == 'gas':
-            files = ('input_rrtm')
+            files = ['input_rrtm']
         elif file == 'aer':
-            files = ('input_rrtm','in_aer_rrtm')
+            files = ['input_rrtm','in_aer_rrtm']
         elif file == 'aercld':
-            files == ('input_rrtm','in_cld_rrtm','in_aer_rrtm')
+            files == ['input_rrtm','in_cld_rrtm','in_aer_rrtm']
         else:
             files = [file]
         for file in files:
