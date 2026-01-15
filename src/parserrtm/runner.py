@@ -52,7 +52,7 @@ class Runner:
             subprocess.run(['ln','-s',(exec_path).resolve(),'rrtm'],cwd=p,check=True)
         return
 
-    def rmdirs(path,uid,rms=['OUTPUT_RRTM','INPUT_RRTM','IN_CLD_RRTM',"'&1'",r'\&1',
+    def rmdirs(path,uid,rms=['OUTPUT_RRTM','INPUT_RRTM','IN_CLD_RRTM','IN_AER_RRTM',"'&1'",r'\&1',
                              'OUT_CLD_RRTM','TAPE6','TAPE7','rrtm.log','rrtm']):
         '''remove unused rrtm worker directories'''
 
